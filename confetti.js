@@ -25,8 +25,11 @@ class ConfettiEngine {
       this.canvas.style.position = 'fixed';
       this.canvas.style.top = '0';
       this.canvas.style.left = '0';
-      this.canvas.style.width = '100vw';
-      this.canvas.style.height = '100vh';
+      this.canvas.style.width = '100%';
+      this.canvas.style.maxWidth = '100vw';
+      this.canvas.style.height = '100%';
+      this.canvas.style.maxHeight = '100vh';
+      this.canvas.style.overflow = 'hidden';
       this.canvas.style.pointerEvents = 'none';
       this.canvas.style.zIndex = '9999';
       document.body.appendChild(this.canvas);
