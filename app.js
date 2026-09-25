@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     candles.forEach((candle, idx) => {
       setTimeout(() => {
         candle.classList.add('extinguished');
-      }, idx * 120);
+      }, idx * 100);
     });
 
     setTimeout(() => {
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Stop mic if running
       stopMic();
-    }, 450);
+    }, 480);
   }
 
   // Click on cake candles or button to blow out
