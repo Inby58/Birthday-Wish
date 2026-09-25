@@ -46,7 +46,7 @@ const BIRTHDAY_CONFIG = {
     paragraphs: [
       "Happy Birthday to two of the most wonderful, loving, and radiant souls! Today is an extraordinary day because we get to celebrate both of you together.",
       "Thank you for the endless warmth, selfless love, guidance, and laughter that you bring into our lives. You both hold an irreplaceable place in our hearts, and each day is so much brighter with you in it.",
-      "As you step into another blessed milestone year, I pray and hope that the journey ahead brings boundless peace of mind, sound health, joyous moments, and countless blessings.",
+      "Semoga dipanjangkan usia, dipelihara kesihatan, dipermurahkan rezeki dan sentiasa dirahmati Allah dalam segala urusan. As you step into another blessed milestone year, I pray that the journey ahead brings boundless peace of mind, sound health, joyous moments, and countless blessings.",
       "May all your prayers be answered, your smiles never fade, and your days be filled with happiness and harmony. Always remember how deeply loved, appreciated, and cherished you both are!"
     ],
     closing: "With all our love, gratitude & warmest prayers,",
