@@ -1019,6 +1019,27 @@ body {
   margin-bottom: 16px;
 }
 
+.letter-photo-wrap {
+  width: 100%;
+  max-width: 440px;
+  margin: 10px auto 25px;
+  border-radius: 16px;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(255, 211, 105, 0.4), rgba(255, 117, 140, 0.4));
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.letter-photo {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
 .letter-body {
   font-family: var(--font-main);
   font-size: 1.05rem;
@@ -1215,6 +1236,26 @@ body {
 
 .toast-msg.show {
   transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================
+   SITE FOOTER (CREDIT)
+   ========================================== */
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 30px 16px 25px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 20;
+}
+
+.site-footer strong {
+  color: var(--warm-gold);
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(246, 211, 101, 0.4);
 }
 
 /* ==========================================

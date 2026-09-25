@@ -67,8 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('letter-author').textContent = cfg.letter.author || 'Your Friend';
     }
 
-    // Render Polaroids
-    renderPolaroids(cfg.polaroids || []);
+    // Special Photo inside the Letter
+    const photoWrap = document.getElementById('letter-photo-wrap');
+    const photoImg = document.getElementById('letter-photo-img');
+    if (cfg.photoUrl && photoWrap && photoImg) {
+      photoImg.src = cfg.photoUrl;
+      photoImg.onload = () => {
+        photoWrap.style.display = 'flex';
+      };
+      photoImg.onerror = () => {
+        photoWrap.style.display = 'none';
+      };
+    }
   }
 
   // Generate Ambient Floating Sparkles
@@ -416,46 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (giftBox) giftBox.addEventListener('click', openGift);
 
-  // Render Polaroids
-  function renderPolaroids(polaroids) {
-    const grid = document.getElementById('polaroid-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
 
-    polaroids.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'polaroid-card';
-      card.innerHTML = `
-        <img class="polaroid-img" src="${item.image}" alt="${item.caption}" loading="lazy">
-        <div class="polaroid-caption">${item.caption}</div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  // Photo Upload Handler (Allows user to add their own photo instantly)
-  const photoUploadInput = document.getElementById('photo-upload-input');
-  if (photoUploadInput) {
-    photoUploadInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const grid = document.getElementById('polaroid-grid');
-        const card = document.createElement('div');
-        card.className = 'polaroid-card';
-        card.innerHTML = `
-          <img class="polaroid-img" src="${event.target.result}" alt="New Memory">
-          <div class="polaroid-caption">Cherished Memory ❤️</div>
-        `;
-        grid.prepend(card);
-        showToast('Photo added to memories gallery!');
-        if (window.birthdayConfetti) window.birthdayConfetti.burst();
-      };
-      reader.readAsDataURL(file);
-    });
-  }
 
 
 

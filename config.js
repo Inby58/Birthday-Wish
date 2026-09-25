@@ -50,24 +50,11 @@ const BIRTHDAY_CONFIG = {
       "May all your prayers be answered, your smiles never fade, and your days be filled with happiness and harmony. Always remember how deeply loved, appreciated, and cherished you both are!"
     ],
     closing: "With all our love, gratitude & warmest prayers,",
-    author: "Forever In Our Hearts ❤️"
+    author: "Izzat Nadzmi Bin Yahaya ❤️"
   },
 
-  // Memory Polaroids (can replace with local image paths e.g. './photo1.jpg' or your uploaded photos)
-  polaroids: [
-    {
-      caption: "Cherished Moments Together ✨",
-      image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      caption: "Laughter, Love & Joy 🥂",
-      image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      caption: "Blessed New Beginnings 🌟",
-      image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=800&q=80"
-    }
-  ],
+  // Special Photo displayed inside the letter (name your file "photo.jpg" in the project folder)
+  photoUrl: "photo.jpg",
 
   // Background Music Settings
   audio: {
