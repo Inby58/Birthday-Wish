@@ -331,8 +331,63 @@ body {
   color: var(--text-muted);
   text-align: center;
   max-width: 600px;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   line-height: 1.6;
+}
+
+/* ==========================================
+   GUIDANCE HINT BUBBLES
+   ========================================== */
+.guide-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 211, 105, 0.55);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 18px rgba(255, 117, 140, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  margin: 0 auto 18px;
+  text-align: center;
+  max-width: 90%;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  user-select: none;
+  z-index: 30;
+}
+
+.guide-bubble-bounce {
+  animation: guideBounce 2.2s infinite ease-in-out;
+}
+
+@keyframes guideBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.guide-arrow {
+  display: inline-block;
+  font-size: 1.15rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  animation: guideArrowPulse 1.2s infinite ease-in-out alternate;
+}
+
+@keyframes guideArrowPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.22); }
+}
+
+.guide-bubble.fade-out {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.9);
+  pointer-events: none;
+  display: none;
 }
 
 /* Primary Action Buttons */
@@ -545,48 +600,181 @@ body {
   box-shadow: 0 0 60px rgba(255, 175, 189, 0.25), inset 0 0 40px rgba(246, 211, 101, 0.15);
 }
 
-/* Hanging Light Switch Cord */
-.switch-cord-container {
-  position: absolute;
-  top: 0;
-  right: 18%;
+/* ==========================================
+   STAGE 2: WALL SOCKET SWITCH & LIGHTS
+   ========================================== */
+.wall-switch-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10px auto 25px;
+  z-index: 25;
+  position: relative;
+}
+
+.wall-switch-plate {
+  width: 90px;
+  height: 135px;
+  background: linear-gradient(145deg, #2b182d 0%, #150917 100%);
+  border: 2px solid rgba(255, 211, 105, 0.45);
+  border-radius: 16px;
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(255, 117, 140, 0.22),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  box-sizing: border-box;
   cursor: pointer;
-  z-index: 20;
-  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-  transform-origin: top center;
-  animation: gentleSway 4s ease-in-out infinite;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  outline: none;
 }
 
-@keyframes gentleSway {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(3deg); }
+.wall-switch-plate:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.7),
+    0 0 32px rgba(255, 211, 105, 0.4);
+  border-color: var(--warm-gold);
 }
 
-.switch-cord {
-  width: 2px;
-  height: 120px;
-  background: linear-gradient(to bottom, #888, #ffd369);
+.wall-switch-plate:active {
+  transform: scale(0.97);
 }
 
-.switch-handle {
-  width: 22px;
-  height: 28px;
-  background: linear-gradient(135deg, #ffd369, #fda085);
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(255, 211, 105, 0.7);
+.switch-screw {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd369;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.switch-screw::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 1px;
+  width: 5px;
+  height: 1px;
+  background: #7a5814;
+}
+
+.switch-bezel {
+  width: 52px;
+  height: 76px;
+  background: #0d0411;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.9);
+  padding: 3px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.7rem;
+  perspective: 400px;
 }
 
-.switch-handle::after {
-  content: '✦';
-  color: #fff;
-  font-size: 10px;
+.rocker-switch {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  /* Default OFF state: tilted down */
+  transform: rotateX(16deg);
+}
+
+.rocker-surface {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.top-half {
+  background: linear-gradient(to bottom, #442548, #2a142d);
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.bottom-half {
+  background: linear-gradient(to bottom, #2a142d, #1c0a1f);
+  border-radius: 0 0 5px 5px;
+}
+
+.rocker-text {
+  font-family: var(--font-main);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Glowing Night LED Indicator */
+.switch-led {
+  position: absolute;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff4757;
+  box-shadow: 0 0 8px #ff4757, 0 0 16px rgba(255, 71, 87, 0.8);
+  animation: ledBreathe 2s infinite ease-in-out;
+  transition: all 0.3s ease;
+}
+
+@keyframes ledBreathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ON State */
+.wall-switch-plate.is-on {
+  border-color: #2ed573;
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(46, 213, 115, 0.45);
+}
+
+.wall-switch-plate.is-on .rocker-switch {
+  transform: rotateX(-16deg);
+}
+
+.wall-switch-plate.is-on .top-half {
+  background: linear-gradient(to bottom, #1c0a1f, #2a142d);
+}
+
+.wall-switch-plate.is-on .bottom-half {
+  background: linear-gradient(to bottom, #2a142d, #442548);
+}
+
+.wall-switch-plate.is-on .switch-led {
+  background: #2ed573;
+  box-shadow: 0 0 10px #2ed573, 0 0 20px #2ed573;
+  animation: none;
+}
+
+.wall-switch-plate.is-on .rocker-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.switch-plate-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--warm-gold);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 /* Fairy Lights Garland */
@@ -671,15 +859,29 @@ body {
 /* ==========================================
    STAGE 3: BALLOON POP WISH GAME
    ========================================== */
-.balloons-arena {
-  width: 100%;
+.balloons-rack {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-end;
-  gap: 25px;
-  margin: 30px 0;
-  min-height: 320px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 580px;
+  margin: 10px auto 25px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.balloon-slot {
+  width: 84px;
+  min-height: 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 .balloon-wrap {
@@ -688,16 +890,17 @@ body {
   align-items: center;
   cursor: pointer;
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .balloon-wrap:hover {
-  transform: scale(1.08) translateY(-6px);
+  transform: scale(1.1) translateY(-6px);
 }
 
 .balloon {
-  width: 85px;
-  height: 105px;
+  width: 82px;
+  height: 102px;
   border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
   position: relative;
   display: flex;
@@ -709,25 +912,25 @@ body {
 
 @keyframes balloonFloat {
   0% { transform: translateY(0px) rotate(-2deg); }
-  100% { transform: translateY(-16px) rotate(2deg); }
+  100% { transform: translateY(-14px) rotate(2deg); }
 }
 
 .balloon-highlight {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 14px;
-  height: 24px;
+  top: 14px;
+  left: 14px;
+  width: 13px;
+  height: 22px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.65);
   transform: rotate(-35deg);
 }
 
 .balloon-label {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   pointer-events: none;
 }
 
@@ -741,39 +944,123 @@ body {
 
 .balloon-string {
   width: 2px;
-  height: 60px;
+  height: 52px;
   background: rgba(255, 255, 255, 0.4);
 }
 
-/* Popped wish badge */
-.wish-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(15px);
-  border: 1px solid var(--border-glow);
-  padding: 18px 22px;
-  border-radius: 16px;
-  max-width: 200px;
+/* Popped badge in slot - keeps slot geometry completely stable */
+.popped-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px dashed rgba(255, 211, 105, 0.6);
+  box-shadow: 0 0 16px rgba(255, 211, 105, 0.25);
+  animation: poppedBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-top: 15px;
+}
+
+@keyframes poppedBounce {
+  0% { transform: scale(0.2); opacity: 0; }
+  65% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.popped-badge-icon {
+  font-size: 1.5rem;
+}
+
+.popped-badge-num {
+  font-size: 0.72rem;
+  color: var(--warm-gold);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Revealed Wishes List below balloons */
+.unlocked-wishes-section {
+  width: 100%;
+  max-width: 640px;
+  margin: 10px auto 0;
+}
+
+.wishes-section-title {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  color: var(--warm-gold);
   text-align: center;
-  box-shadow: var(--shadow-glow);
-  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-bottom: 12px;
+}
+
+.wishes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.wish-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 211, 105, 0.35);
+  padding: 16px 20px;
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  animation: wishCardEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.wish-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--warm-gold), var(--sunset-coral));
+}
+
+@keyframes wishCardEnter {
+  0% { transform: translateY(18px) scale(0.97); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.wish-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
 .wish-card-title {
   font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--warm-gold);
-  margin-bottom: 6px;
+}
+
+.wish-card-tag {
+  font-size: 0.75rem;
+  color: var(--rose-gold-light);
+  background: rgba(255, 117, 140, 0.18);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
 }
 
 .wish-card-text {
-  font-size: 0.85rem;
-  color: #fff;
-  line-height: 1.4;
-}
-
-@keyframes popIn {
-  0% { transform: scale(0.4); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  font-size: 0.95rem;
+  color: #ffffff;
+  line-height: 1.5;
 }
 
 /* ==========================================
@@ -783,8 +1070,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px 0 20px;
   position: relative;
+  padding-top: 55px; /* guarantees candle height + flame height fit inside! */
+  margin: 20px auto 18px;
+  overflow: visible !important; /* CRITICAL: Never clip candles! */
+  cursor: pointer;
 }
 
 .cake-stand {
@@ -849,14 +1139,16 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Candles container */
+/* Candles container positioned right atop the top tier */
 .candles-row {
   display: flex;
   justify-content: center;
   gap: 22px;
   position: absolute;
-  top: -42px;
-  z-index: 10;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
 }
 
 .candle {
@@ -867,10 +1159,11 @@ body {
   position: relative;
   cursor: pointer;
   transition: transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .candle:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .wick {
@@ -1413,10 +1706,6 @@ body {
     padding: 30px 15px;
   }
 
-  .switch-cord-container {
-    right: 12%;
-  }
-
   .neon-title {
     font-size: 2.1rem;
   }
@@ -1615,13 +1904,34 @@ body {
 
   /* Lights Scene on Mobile */
   .light-scene {
-    min-height: 280px;
+    min-height: 250px;
     padding: 20px 8px;
     border-radius: 16px;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box;
     overflow: hidden;
+  }
+
+  .wall-switch-container {
+    margin: 6px auto 16px;
+  }
+
+  .wall-switch-plate {
+    width: 78px;
+    height: 118px;
+    border-radius: 14px;
+    padding: 8px 0;
+  }
+
+  .switch-bezel {
+    width: 44px;
+    height: 64px;
+  }
+
+  .switch-plate-label {
+    font-size: 0.55rem;
+    letter-spacing: 1px;
   }
 
   .fairy-lights {
@@ -1631,14 +1941,6 @@ body {
   .fairy-bulb {
     width: 8px;
     height: 14px;
-  }
-
-  .switch-cord-container {
-    right: 6%;
-  }
-
-  .switch-cord {
-    height: 75px;
   }
 
   .neon-banner {
@@ -1663,49 +1965,85 @@ body {
   }
 
   /* Balloons on Mobile */
-  .balloons-arena {
-    gap: 10px;
-    margin: 15px auto;
-    min-height: 220px;
-    width: 100%;
+  .balloons-rack {
+    gap: 8px;
     max-width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    margin: 5px auto 16px;
+    padding: 4px;
+    overflow: visible;
+  }
+
+  .balloon-slot {
+    width: 58px;
+    min-height: 112px;
   }
 
   .balloon {
-    width: 62px;
-    height: 78px;
+    width: 52px;
+    height: 66px;
   }
 
   .balloon-string {
-    height: 36px;
+    height: 28px;
+  }
+
+  .balloon-label {
+    font-size: 0.7rem;
+  }
+
+  .popped-badge {
+    width: 52px;
+    height: 52px;
+    margin-top: 10px;
+  }
+
+  .popped-badge-icon {
+    font-size: 1.15rem;
+  }
+
+  .popped-badge-num {
+    font-size: 0.65rem;
+  }
+
+  .wishes-section-title {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+  }
+
+  .wishes-grid {
+    gap: 10px;
   }
 
   .wish-card {
     padding: 12px 14px;
-    max-width: 100%;
-    width: min(250px, calc(100vw - 32px));
+    width: 100%;
     box-sizing: border-box;
     word-break: break-word;
     overflow-wrap: break-word;
   }
 
   .wish-card-title {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
+  }
+
+  .wish-card-tag {
+    font-size: 0.7rem;
+    padding: 2px 7px;
   }
 
   .wish-card-text {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    line-height: 1.45;
   }
 
-  /* Cake on Mobile */
+  /* Cake on Mobile - Fully visible candles, no cutoff! */
   .cake-scene {
     margin: 15px auto 10px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    padding-top: 48px !important;
+    overflow: visible !important; /* CRITICAL: Never clip candles on mobile */
   }
 
   .cake-stand {
@@ -1724,19 +2062,28 @@ body {
   }
 
   .candles-row {
-    gap: 12px;
-    top: -34px;
+    gap: 14px;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
   }
 
   .candle {
-    width: 8px;
-    height: 32px;
+    width: 9px;
+    height: 34px;
   }
 
   .flame {
-    width: 10px;
-    height: 16px;
-    top: -18px;
+    width: 12px;
+    height: 18px;
+    top: -19px;
+  }
+
+  .guide-bubble {
+    font-size: 0.82rem;
+    padding: 6px 14px;
+    margin-bottom: 12px;
   }
 
   .mic-meter-box {

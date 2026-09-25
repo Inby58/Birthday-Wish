@@ -92,6 +92,11 @@
       <h1 class="stage-heading" id="door-main-heading">Someone Special is Celebrating!</h1>
       <p class="stage-desc" id="door-desc">A wonderful surprise has been prepared behind this door. Knock gently to step inside the celebration!</p>
 
+      <!-- Guidance Bubble -->
+      <div class="guide-bubble guide-bubble-bounce" id="guide-stage-1">
+        <span class="guide-arrow">👉</span> Tap door or button to knock!
+      </div>
+
       <div class="door-scene">
         <div class="door-frame">
           <div class="door-inner-glow">
@@ -119,15 +124,34 @@
     <section class="stage-section" id="stage-2">
       <span class="title-script">Set the Mood</span>
       <h2 class="stage-heading">It's A Bit Dark in Here...</h2>
-      <p class="stage-desc">Pull the glowing switch cord to illuminate the party hall and turn on the magical lights!</p>
+      <p class="stage-desc" id="lights-desc">Tap the wall socket switch to illuminate the party hall and turn on the magical lights!</p>
+
+      <!-- Guidance Bubble -->
+      <div class="guide-bubble guide-bubble-bounce" id="guide-stage-2">
+        <span class="guide-arrow">👇</span> Tap the switch to turn on lights!
+      </div>
+
+      <!-- Tactile Wall Socket Switch -->
+      <div class="wall-switch-container">
+        <div class="wall-switch-plate" id="wall-switch" role="button" tabindex="0" title="Tap to turn on lights" aria-label="Light switch">
+          <div class="switch-screw screw-top"></div>
+          <div class="switch-bezel">
+            <div class="rocker-switch" id="rocker-switch">
+              <div class="rocker-surface top-half">
+                <span class="rocker-text">I</span>
+                <div class="switch-led" id="switch-led" title="Status Indicator"></div>
+              </div>
+              <div class="rocker-surface bottom-half">
+                <span class="rocker-text">O</span>
+              </div>
+            </div>
+          </div>
+          <div class="switch-screw screw-bottom"></div>
+          <div class="switch-plate-label">LIGHTS</div>
+        </div>
+      </div>
 
       <div class="light-scene" id="light-scene">
-        <!-- Dangling Switch Cord -->
-        <div class="switch-cord-container" id="switch-cord" title="Pull me!">
-          <div class="switch-cord"></div>
-          <div class="switch-handle"></div>
-        </div>
-
         <!-- Fairy Lights Bulbs -->
         <div class="fairy-lights">
           <div class="fairy-bulb"></div>
@@ -148,7 +172,7 @@
         </div>
       </div>
 
-      <div style="margin-top: 30px;">
+      <div style="margin-top: 25px;">
         <button class="btn-gold" id="btn-to-stage-3" style="display: none;">
           Continue to Balloons 🎈
         </button>
@@ -161,15 +185,29 @@
       <h2 class="stage-heading">Pop The Birthday Balloons!</h2>
       <p class="stage-desc">Each balloon holds a secret wish & heartfelt compliment. Tap each one to burst and collect them all!</p>
 
-      <div style="font-size: 0.95rem; color: var(--warm-gold); font-weight: 600; margin-bottom: 10px;" id="balloon-progress-text">
+      <!-- Guidance Bubble -->
+      <div class="guide-bubble guide-bubble-bounce" id="guide-stage-3">
+        <span class="guide-arrow">👇</span> Tap each balloon to pop & reveal wishes!
+      </div>
+
+      <div style="font-size: 0.95rem; color: var(--warm-gold); font-weight: 600; margin-bottom: 14px;" id="balloon-progress-text">
         Wishes Unlocked: 0 / 5
       </div>
 
-      <div class="balloons-arena" id="balloons-arena">
+      <!-- Dedicated Balloon Rack: 5 stable slots that NEVER shift or cut off -->
+      <div class="balloons-rack" id="balloons-rack">
         <!-- Dynamically injected balloons -->
       </div>
 
-      <button class="btn-gold" id="btn-to-stage-4" style="display: none;">
+      <!-- Dedicated Unlocked Wishes Section below balloons -->
+      <div class="unlocked-wishes-section" id="unlocked-wishes-section">
+        <h4 class="wishes-section-title" id="wishes-section-title" style="display: none;">Unlocked Wishes 💌</h4>
+        <div class="wishes-grid" id="wishes-card-list">
+          <!-- Dynamically appended wish cards -->
+        </div>
+      </div>
+
+      <button class="btn-gold" id="btn-to-stage-4" style="display: none; margin-top: 22px;">
         Bring Out The Cake! 🎂
       </button>
     </section>
@@ -180,19 +218,24 @@
       <h2 class="stage-heading" id="cake-heading">Time to Blow the Candles!</h2>
       <p class="stage-desc" id="cake-subtext">Close your eyes, make a silent wish in your heart, and blow out the birthday flames!</p>
 
-      <div class="cake-scene">
+      <!-- Guidance Bubble -->
+      <div class="guide-bubble guide-bubble-bounce" id="guide-stage-4">
+        <span class="guide-arrow">🎂</span> Tap candles or button to blow!
+      </div>
+
+      <div class="cake-scene" id="cake-scene" title="Tap cake or candles to blow!">
         <div class="candles-row" id="candles-row">
-          <div class="candle" id="candle-1">
+          <div class="candle" id="candle-1" title="Tap candle to extinguish!">
             <div class="wick"></div>
             <div class="flame"></div>
             <div class="smoke"></div>
           </div>
-          <div class="candle" id="candle-2">
+          <div class="candle" id="candle-2" title="Tap candle to extinguish!">
             <div class="wick"></div>
             <div class="flame"></div>
             <div class="smoke"></div>
           </div>
-          <div class="candle" id="candle-3">
+          <div class="candle" id="candle-3" title="Tap candle to extinguish!">
             <div class="wick"></div>
             <div class="flame"></div>
             <div class="smoke"></div>
@@ -238,6 +281,11 @@
       <span class="title-script">A Special Surprise</span>
       <h2 class="stage-heading" id="gift-heading">A Gift Wrapped With Love</h2>
       <p class="stage-desc" id="gift-desc">Tap the luxury gift box to untie the ribbon and reveal your personalized birthday letter!</p>
+
+      <!-- Guidance Bubble -->
+      <div class="guide-bubble guide-bubble-bounce" id="guide-stage-5">
+        <span class="guide-arrow">🎁</span> Tap the gift box to open!
+      </div>
 
       <!-- 3D Gift Box -->
       <div class="gift-scene">

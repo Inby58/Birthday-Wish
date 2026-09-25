@@ -132,11 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // ================= STAGE 1: DOOR =================
   const doorLeaf = document.getElementById('door-leaf');
   const btnKnock = document.getElementById('btn-knock');
+  const guideStage1 = document.getElementById('guide-stage-1');
   let doorOpened = false;
 
   function openDoor() {
     if (doorOpened) return;
     doorOpened = true;
+
+    if (navigator.vibrate) {
+      try { navigator.vibrate(40); } catch (e) {}
+    }
+
+    if (guideStage1) {
+      guideStage1.classList.add('fade-out');
+    }
 
     if (window.birthdayAudio) {
       window.birthdayAudio.playKnock();
@@ -170,21 +179,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnKnock) btnKnock.addEventListener('click', openDoor);
   if (doorLeaf) doorLeaf.addEventListener('click', openDoor);
 
-  // ================= STAGE 2: LIGHTS =================
-  const switchCord = document.getElementById('switch-cord');
+  // ================= STAGE 2: LIGHTS (WALL SOCKET SWITCH) =================
+  const wallSwitch = document.getElementById('wall-switch');
   const lightScene = document.getElementById('light-scene');
   const btnToStage3 = document.getElementById('btn-to-stage-3');
+  const guideStage2 = document.getElementById('guide-stage-2');
   let lightsTurnedOn = false;
 
   function turnOnLights() {
     if (lightsTurnedOn) return;
     lightsTurnedOn = true;
 
-    // Switch cord bounce
-    switchCord.style.transform = 'translateY(22px)';
-    setTimeout(() => {
-      switchCord.style.transform = 'translateY(0px)';
-    }, 200);
+    if (wallSwitch) {
+      wallSwitch.classList.add('is-on');
+    }
+
+    if (navigator.vibrate) {
+      try { navigator.vibrate(35); } catch (e) {}
+    }
+
+    if (guideStage2) {
+      guideStage2.classList.add('fade-out');
+    }
 
     if (window.birthdayAudio) {
       window.birthdayAudio.playSwitch();
@@ -205,16 +221,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 250);
   }
 
-  if (switchCord) switchCord.addEventListener('click', turnOnLights);
+  if (wallSwitch) {
+    wallSwitch.addEventListener('click', turnOnLights);
+    wallSwitch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        turnOnLights();
+      }
+    });
+  }
+
   if (btnToStage3) btnToStage3.addEventListener('click', () => {
     goToStage(3);
     initBalloons();
   });
 
-  // ================= STAGE 3: BALLOONS =================
-  const balloonsArena = document.getElementById('balloons-arena');
+  // ================= STAGE 3: BALLOONS (STABLE RACK & FEED) =================
+  const balloonsRack = document.getElementById('balloons-rack');
+  const wishesCardList = document.getElementById('wishes-card-list');
+  const wishesSectionTitle = document.getElementById('wishes-section-title');
   const balloonProgressText = document.getElementById('balloon-progress-text');
   const btnToStage4 = document.getElementById('btn-to-stage-4');
+  const guideStage3 = document.getElementById('guide-stage-3');
   let balloonsInitialized = false;
 
   const balloonColors = [
@@ -228,7 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function initBalloons() {
     if (balloonsInitialized) return;
     balloonsInitialized = true;
-    balloonsArena.innerHTML = '';
+    if (balloonsRack) balloonsRack.innerHTML = '';
+    if (wishesCardList) wishesCardList.innerHTML = '';
     balloonsPopped = 0;
 
     const wishes = cfg.balloonWishes || [
@@ -240,13 +269,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     wishes.forEach((item, index) => {
+      const slot = document.createElement('div');
+      slot.className = 'balloon-slot';
+      slot.id = `balloon-slot-${index}`;
+
       const wrap = document.createElement('div');
       wrap.className = 'balloon-wrap';
-
       const color = balloonColors[index % balloonColors.length];
 
       wrap.innerHTML = `
-        <div class="balloon" style="background: ${color};">
+        <div class="balloon" style="background: ${color}; animation-delay: ${(index * 0.35).toFixed(1)}s;">
           <div class="balloon-highlight"></div>
           <span class="balloon-label">Pop!</span>
         </div>
@@ -254,9 +286,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="balloon-string"></div>
       `;
 
-      wrap.addEventListener('click', (e) => {
-        if (wrap.dataset.popped) return;
-        wrap.dataset.popped = 'true';
+      wrap.addEventListener('click', () => {
+        if (slot.dataset.popped) return;
+        slot.dataset.popped = 'true';
+
+        if (navigator.vibrate) {
+          try { navigator.vibrate(30); } catch (e) {}
+        }
 
         // Sound & Confetti
         if (window.birthdayAudio) window.birthdayAudio.playPop();
@@ -265,16 +301,39 @@ document.addEventListener('DOMContentLoaded', () => {
           window.birthdayConfetti.burst(rect.left + rect.width / 2, rect.top + rect.height / 2, 35);
         }
 
-        // Replace balloon with wish card
-        wrap.innerHTML = `
-          <div class="wish-card">
-            <div class="wish-card-title">${item.title}</div>
-            <div class="wish-card-text">${item.text}</div>
+        // Replace balloon in its slot with a neat popped badge so other balloons never jump or move
+        slot.innerHTML = `
+          <div class="popped-badge">
+            <span class="popped-badge-icon">✨</span>
+            <span class="popped-badge-num">#${index + 1}</span>
           </div>
         `;
 
+        // Reveal wish card in the dedicated list below
+        if (wishesSectionTitle) wishesSectionTitle.style.display = 'block';
+        if (wishesCardList) {
+          const card = document.createElement('div');
+          card.className = 'wish-card';
+          card.innerHTML = `
+            <div class="wish-card-header">
+              <div class="wish-card-title">${item.title}</div>
+              <span class="wish-card-tag">Wish #${index + 1}</span>
+            </div>
+            <div class="wish-card-text">${item.text}</div>
+          `;
+          wishesCardList.appendChild(card);
+        }
+
         balloonsPopped++;
         balloonProgressText.textContent = `Wishes Unlocked: ${balloonsPopped} / ${wishes.length}`;
+
+        if (guideStage3) {
+          if (balloonsPopped === wishes.length) {
+            guideStage3.classList.add('fade-out');
+          } else {
+            guideStage3.innerHTML = `<span class="guide-arrow">👇</span> Tap the remaining ${wishes.length - balloonsPopped} balloons!`;
+          }
+        }
 
         if (balloonsPopped === wishes.length) {
           balloonProgressText.textContent = `🎉 All ${wishes.length} wishes revealed! The cake is waiting!`;
@@ -284,7 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      balloonsArena.appendChild(wrap);
+      slot.appendChild(wrap);
+      balloonsRack.appendChild(slot);
     });
   }
 
@@ -296,11 +356,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const micMeterBox = document.getElementById('mic-meter-box');
   const micLevelBar = document.getElementById('mic-level');
   const btnToStage5 = document.getElementById('btn-to-stage-5');
+  const cakeScene = document.getElementById('cake-scene');
   const candles = document.querySelectorAll('.candle');
+  const guideStage4 = document.getElementById('guide-stage-4');
 
   function extinguishCandles() {
     if (candlesBlown) return;
     candlesBlown = true;
+
+    if (navigator.vibrate) {
+      try { navigator.vibrate(35); } catch (e) {}
+    }
+
+    if (guideStage4) {
+      guideStage4.classList.add('fade-out');
+    }
 
     if (window.birthdayAudio) {
       window.birthdayAudio.playBlow();
@@ -327,9 +397,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 450);
   }
 
-  // Click on cake candles or button
+  // Click on cake candles or button to blow out
   if (btnBlowCandles) btnBlowCandles.addEventListener('click', extinguishCandles);
-  candles.forEach(c => c.addEventListener('click', extinguishCandles));
+  if (cakeScene) cakeScene.addEventListener('click', extinguishCandles);
+  candles.forEach(c => c.addEventListener('click', (e) => {
+    e.stopPropagation();
+    extinguishCandles();
+  }));
 
   // Microphone Blowing Detection
   if (btnMicBlow) {
@@ -400,16 +474,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnToStage5) btnToStage5.addEventListener('click', () => goToStage(5));
 
-  // ================= STAGE 5: GIFT, LETTER, POLAROIDS, LANTERN =================
+  // ================= STAGE 5: GIFT & LETTER =================
   const giftBox = document.getElementById('gift-box');
   const birthdayLetter = document.getElementById('birthday-letter');
-  const memoriesSection = document.getElementById('memories-section');
   const partyToolbar = document.getElementById('party-toolbar');
+  const guideStage5 = document.getElementById('guide-stage-5');
   let giftOpened = false;
 
   function openGift() {
     if (giftOpened) return;
     giftOpened = true;
+
+    if (navigator.vibrate) {
+      try { navigator.vibrate(40); } catch (e) {}
+    }
+
+    if (guideStage5) {
+      guideStage5.classList.add('fade-out');
+    }
 
     if (window.birthdayAudio) window.birthdayAudio.playGiftOpen();
     if (window.birthdayConfetti) window.birthdayConfetti.cannon();
@@ -419,16 +501,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       giftBox.style.display = 'none';
       birthdayLetter.style.display = 'block';
-      memoriesSection.style.display = 'flex';
       partyToolbar.style.display = 'flex';
     }, 600);
   }
 
   if (giftBox) giftBox.addEventListener('click', openGift);
-
-
-
-
 
   // Party Action Toolbar buttons
   const btnBlastConfetti = document.getElementById('btn-blast-confetti');
@@ -444,6 +521,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnReplay) {
     btnReplay.addEventListener('click', () => {
+      // Reset state for full replay experience
+      doorOpened = false;
+      doorLeaf.classList.remove('open', 'shake');
+      if (guideStage1) {
+        guideStage1.classList.remove('fade-out');
+        guideStage1.style.display = 'inline-flex';
+      }
+
+      lightsTurnedOn = false;
+      if (wallSwitch) wallSwitch.classList.remove('is-on');
+      if (lightScene) lightScene.classList.remove('lights-on');
+      btnToStage3.style.display = 'none';
+      if (guideStage2) {
+        guideStage2.classList.remove('fade-out');
+        guideStage2.style.display = 'inline-flex';
+      }
+
+      balloonsInitialized = false;
+      balloonsPopped = 0;
+      if (balloonsRack) balloonsRack.innerHTML = '';
+      if (wishesCardList) wishesCardList.innerHTML = '';
+      if (wishesSectionTitle) wishesSectionTitle.style.display = 'none';
+      balloonProgressText.textContent = 'Wishes Unlocked: 0 / 5';
+      btnToStage4.style.display = 'none';
+      if (guideStage3) {
+        guideStage3.classList.remove('fade-out');
+        guideStage3.style.display = 'inline-flex';
+        guideStage3.innerHTML = '<span class="guide-arrow">👇</span> Tap each balloon to pop & reveal wishes!';
+      }
+
+      candlesBlown = false;
+      candles.forEach(c => c.classList.remove('extinguished'));
+      btnBlowCandles.style.display = 'inline-flex';
+      if (btnMicBlow) btnMicBlow.style.display = 'inline-flex';
+      btnToStage5.style.display = 'none';
+      if (guideStage4) {
+        guideStage4.classList.remove('fade-out');
+        guideStage4.style.display = 'inline-flex';
+      }
+
+      giftOpened = false;
+      giftBox.classList.remove('opened');
+      giftBox.style.display = 'block';
+      birthdayLetter.style.display = 'none';
+      partyToolbar.style.display = 'none';
+      if (guideStage5) {
+        guideStage5.classList.remove('fade-out');
+        guideStage5.style.display = 'inline-flex';
+      }
+
       goToStage(1);
     });
   }
