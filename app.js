@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.title = `Happy Birthday ${name}! ✨ A Special Celebration`;
 
     // Header & Plaque
-    document.getElementById('header-logo-text').textContent = `${name}'s Birthday`;
+    const headerTitle = cfg.shortName ? `${cfg.shortName}'s Birthday` : `${name}'s Birthday`;
+    document.getElementById('header-logo-text').textContent = headerTitle;
     document.getElementById('door-plaque-text').textContent = `FOR ${name.toUpperCase()}`;
-    document.getElementById('door-main-heading').textContent = `Special Surprise for ${name} ${nickname}`;
+    document.getElementById('door-main-heading').textContent = `Special Celebration for ${name}`;
     if (cfg.doorSubtitle) {
       document.getElementById('door-desc').textContent = cfg.doorSubtitle;
     }
@@ -45,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('cake-heading').textContent = `Happy ${cfg.age}th Birthday, ${name}!`;
     } else {
       document.getElementById('cake-heading').textContent = `Happy Birthday, ${name}!`;
+    }
+    if (cfg.cakeTitle) {
+      document.getElementById('cake-subtext').textContent = cfg.cakeTitle;
     }
 
     // Stage 5 Letter
