@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday! ✨ A Special Celebration</title>
+  <meta name="description" content="An interactive birthday celebration journey filled with surprises, wishes, games, and music!">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Happy Birthday! ✨ A Special Celebration">
+  <meta property="og:description" content="Someone made a magical interactive birthday party website just for you!">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Floating Dust Particles -->
+  <div class="ambient-particles" id="ambient-particles"></div>
+
+  <!-- Header & Stage Navigator -->
+  <header class="site-header">
+    <div class="logo-container">
+      <span class="logo-icon">🎂</span>
+      <span class="logo-text" id="header-logo-text">Birthday Wish</span>
+    </div>
+
+    <!-- Navigation Dots -->
+    <nav class="stage-tracker" id="stage-tracker">
+      <button class="stage-step active" data-stage="1" id="nav-step-1" aria-label="Stage 1: Door">
+        <span class="step-number">1</span>
+        <span class="step-text">Door</span>
+      </button>
+      <button class="stage-step" data-stage="2" id="nav-step-2" aria-label="Stage 2: Lights">
+        <span class="step-number">2</span>
+        <span class="step-text">Lights</span>
+      </button>
+      <button class="stage-step" data-stage="3" id="nav-step-3" aria-label="Stage 3: Balloons">
+        <span class="step-number">3</span>
+        <span class="step-text">Balloons</span>
+      </button>
+      <button class="stage-step" data-stage="4" id="nav-step-4" aria-label="Stage 4: Cake">
+        <span class="step-number">4</span>
+        <span class="step-text">Cake</span>
+      </button>
+      <button class="stage-step" data-stage="5" id="nav-step-5" aria-label="Stage 5: Gift">
+        <span class="step-number">5</span>
+        <span class="step-text">Gift</span>
+      </button>
+    </nav>
+
+    <!-- Audio & Music Toggle -->
+    <div class="header-actions">
+      <button class="btn-icon" id="btn-toggle-sound" title="Toggle Sound Effects">
+        <span id="sound-icon">🔊</span>
+      </button>
+      <button class="btn-icon" id="btn-toggle-music" title="Toggle Birthday Melody">
+        <span id="music-icon">🎵</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Interactive Journey -->
+  <main class="main-wrapper">
+
+    <!-- ================= STAGE 1: THE DOOR ================= -->
+    <section class="stage-section active" id="stage-1">
+      <span class="title-script">A Special Invitation</span>
+      <h1 class="stage-heading" id="door-main-heading">Someone Special is Celebrating!</h1>
+      <p class="stage-desc" id="door-desc">A wonderful surprise has been prepared behind this door. Knock gently to step inside the celebration!</p>
+
+      <div class="door-scene">
+        <div class="door-frame">
+          <div class="door-inner-glow">
+            <span>✨ Welcome In! ✨</span>
+          </div>
+          <div class="door-leaf" id="door-leaf">
+            <div class="door-panel">
+              <div class="door-plaque" id="door-plaque-text">VIP GUEST</div>
+            </div>
+            <div class="door-knocker" id="door-knocker"></div>
+            <div class="door-panel">
+              <span style="font-size: 1.8rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">🗝️</span>
+            </div>
+            <div class="door-handle"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-knock">
+        <span>🚪</span> Knock on the Door!
+      </button>
+    </section>
+
+    <!-- ================= STAGE 2: LIGHTS ON ================= -->
+    <section class="stage-section" id="stage-2">
+      <span class="title-script">Set the Mood</span>
+      <h2 class="stage-heading">It's A Bit Dark in Here...</h2>
+      <p class="stage-desc">Pull the glowing switch cord to illuminate the party hall and turn on the magical lights!</p>
+
+      <div class="light-scene" id="light-scene">
+        <!-- Dangling Switch Cord -->
+        <div class="switch-cord-container" id="switch-cord" title="Pull me!">
+          <div class="switch-cord"></div>
+          <div class="switch-handle"></div>
+        </div>
+
+        <!-- Fairy Lights Bulbs -->
+        <div class="fairy-lights">
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+          <div class="fairy-bulb"></div>
+        </div>
+
+        <!-- Neon Marquee Banner -->
+        <div class="neon-banner">
+          <h3 class="neon-title" id="neon-birthday-name">HAPPY BIRTHDAY!</h3>
+          <p class="neon-subtitle" id="neon-birthday-sub">Let the celebration begin ✨</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px;">
+        <button class="btn-gold" id="btn-to-stage-3" style="display: none;">
+          Continue to Balloons 🎈
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: BALLOON POP ================= -->
+    <section class="stage-section" id="stage-3">
+      <span class="title-script">Party Game</span>
+      <h2 class="stage-heading">Pop The Birthday Balloons!</h2>
+      <p class="stage-desc">Each balloon holds a secret wish & heartfelt compliment. Tap each one to burst and collect them all!</p>
+
+      <div style="font-size: 0.95rem; color: var(--warm-gold); font-weight: 600; margin-bottom: 10px;" id="balloon-progress-text">
+        Wishes Unlocked: 0 / 5
+      </div>
+
+      <div class="balloons-arena" id="balloons-arena">
+        <!-- Dynamically injected balloons -->
+      </div>
+
+      <button class="btn-gold" id="btn-to-stage-4" style="display: none;">
+        Bring Out The Cake! 🎂
+      </button>
+    </section>
+
+    <!-- ================= STAGE 4: CAKE & CANDLES ================= -->
+    <section class="stage-section" id="stage-4">
+      <span class="title-script">Make A Wish</span>
+      <h2 class="stage-heading" id="cake-heading">Time to Blow the Candles!</h2>
+      <p class="stage-desc" id="cake-subtext">Close your eyes, make a silent wish in your heart, and blow out the birthday flames!</p>
+
+      <div class="cake-scene">
+        <div class="candles-row" id="candles-row">
+          <div class="candle" id="candle-1">
+            <div class="wick"></div>
+            <div class="flame"></div>
+            <div class="smoke"></div>
+          </div>
+          <div class="candle" id="candle-2">
+            <div class="wick"></div>
+            <div class="flame"></div>
+            <div class="smoke"></div>
+          </div>
+          <div class="candle" id="candle-3">
+            <div class="wick"></div>
+            <div class="flame"></div>
+            <div class="smoke"></div>
+          </div>
+        </div>
+
+        <div class="cake-body">
+          <div class="cake-tier tier-top">
+            <div class="frosting"></div>
+          </div>
+          <div class="cake-tier tier-bottom">
+            <div class="frosting"></div>
+          </div>
+          <div class="cake-stand"></div>
+        </div>
+      </div>
+
+      <!-- Action & Mic Option -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 25px;">
+        <button class="btn-primary" id="btn-blow-candles">
+          🌬️ Blow Out Candles!
+        </button>
+
+        <button class="btn-secondary" id="btn-mic-blow">
+          🎙️ Use Microphone (Blow into your mic)
+        </button>
+
+        <div class="mic-meter-box" id="mic-meter-box" style="display: none;">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Blow directly into your mic:</span>
+          <div class="mic-bar">
+            <div class="mic-level" id="mic-level"></div>
+          </div>
+        </div>
+
+        <button class="btn-gold" id="btn-to-stage-5" style="display: none; margin-top: 10px;">
+          Open Your Birthday Gift! 🎁
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: GIFT & LETTER ================= -->
+    <section class="stage-section" id="stage-5">
+      <span class="title-script">A Special Surprise</span>
+      <h2 class="stage-heading" id="gift-heading">A Gift Wrapped With Love</h2>
+      <p class="stage-desc" id="gift-desc">Tap the luxury gift box to untie the ribbon and reveal your personalized birthday letter!</p>
+
+      <!-- 3D Gift Box -->
+      <div class="gift-scene">
+        <div class="gift-box" id="gift-box" title="Tap to open!">
+          <div class="gift-body">
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+            <div class="gift-bow">🎀</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unfolded Letter -->
+      <div class="letter-container" id="birthday-letter">
+        <div class="letter-wax-seal">★</div>
+        <div class="letter-salutation" id="letter-salutation">Dearest Sarah,</div>
+        <div class="letter-body" id="letter-body">
+          <!-- Dynamically populated from config.js -->
+        </div>
+        <div class="letter-closing" id="letter-closing">With all my love & warmest wishes,</div>
+        <div class="letter-author" id="letter-author">Your Best Friend ❤️</div>
+      </div>
+
+      <!-- Memories Polaroids Gallery -->
+      <div class="memories-section" id="memories-section" style="display: none;">
+        <span class="title-script">Cherished Memories</span>
+        <h3 class="stage-heading" style="font-size: 2rem;">Golden Moments</h3>
+        <div class="polaroid-grid" id="polaroid-grid">
+          <!-- Injected from config -->
+        </div>
+
+        <!-- Add Photo Option -->
+        <label class="btn-secondary" style="cursor: pointer; margin-top: 10px;">
+          📷 Add Your Own Photo
+          <input type="file" id="photo-upload-input" accept="image/*" style="display: none;">
+        </label>
+      </div>
+
+      <!-- Sky Lantern Wish Feature -->
+      <div class="lantern-section" id="lantern-section" style="display: none;">
+        <span class="title-script">Make A Sky Wish</span>
+        <h4 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--warm-gold); margin-bottom: 6px;">Send Your Wish to the Stars</h4>
+        <p style="font-size: 0.95rem; color: var(--text-muted); text-align: center;">Write down your biggest dream for this new year and release it as a floating glowing sky lantern:</p>
+        <div class="wish-input-row">
+          <input type="text" class="wish-input" id="sky-wish-input" placeholder="e.g. Travel more, find peace, achieve my dream...">
+          <button class="btn-gold" id="btn-release-lantern" style="padding: 10px 22px;">Release 🏮</button>
+        </div>
+        <div id="saved-wishes-list" style="margin-top: 15px; font-size: 0.9rem; color: var(--rose-gold-light); text-align: center;"></div>
+      </div>
+
+      <!-- Party Action Toolbar -->
+      <div class="party-toolbar" id="party-toolbar" style="display: none;">
+        <button class="btn-primary" id="btn-blast-confetti">
+          🎉 Blast Confetti!
+        </button>
+        <button class="btn-secondary" id="btn-replay">
+          🔄 Replay Party Journey
+        </button>
+        <button class="btn-secondary" id="btn-share">
+          🔗 Copy Link to Share
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast-msg">Link copied to clipboard!</div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Application Scripts -->
+  <script src="config.js"></script>
+  <script src="audio.js"></script>
+  <script src="confetti.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
