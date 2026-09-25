@@ -394,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const giftBox = document.getElementById('gift-box');
   const birthdayLetter = document.getElementById('birthday-letter');
   const memoriesSection = document.getElementById('memories-section');
-  const lanternSection = document.getElementById('lantern-section');
   const partyToolbar = document.getElementById('party-toolbar');
   let giftOpened = false;
 
@@ -411,9 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
       giftBox.style.display = 'none';
       birthdayLetter.style.display = 'block';
       memoriesSection.style.display = 'flex';
-      lanternSection.style.display = 'flex';
       partyToolbar.style.display = 'flex';
-      loadSavedWishes();
     }, 600);
   }
 
@@ -460,68 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Sky Lantern Wish System
-  const skyWishInput = document.getElementById('sky-wish-input');
-  const btnReleaseLantern = document.getElementById('btn-release-lantern');
-  const savedWishesList = document.getElementById('saved-wishes-list');
 
-  function releaseSkyLantern() {
-    const text = skyWishInput.value.trim();
-    if (!text) {
-      alert('Please enter your wish before sending it to the stars!');
-      return;
-    }
-
-    // Create floating lantern element
-    const lantern = document.createElement('div');
-    lantern.className = 'floating-lantern';
-    lantern.innerHTML = `<span>🏮</span><br><span>${text}</span>`;
-    document.body.appendChild(lantern);
-
-    if (window.birthdayAudio) window.birthdayAudio.playBell(null, 1046.5, 0.8, 0.4);
-
-    // Save to localStorage
-    saveWishToStorage(text);
-    skyWishInput.value = '';
-
-    // Remove DOM element after animation
-    setTimeout(() => {
-      lantern.remove();
-    }, 7200);
-
-    showToast('Your wish is floating into the starry sky! ✨');
-  }
-
-  function saveWishToStorage(wishText) {
-    try {
-      const existing = JSON.parse(localStorage.getItem('birthday_wishes') || '[]');
-      existing.push({ text: wishText, date: new Date().toLocaleDateString() });
-      localStorage.setItem('birthday_wishes', JSON.stringify(existing));
-      loadSavedWishes();
-    } catch (e) {
-      console.warn('LocalStorage error:', e);
-    }
-  }
-
-  function loadSavedWishes() {
-    if (!savedWishesList) return;
-    try {
-      const existing = JSON.parse(localStorage.getItem('birthday_wishes') || '[]');
-      if (existing.length === 0) {
-        savedWishesList.innerHTML = '';
-        return;
-      }
-      savedWishesList.innerHTML = `<strong>Wishes Sent to the Stars:</strong><br>` +
-        existing.map(w => `✨ "${w.text}" (${w.date})`).join('<br>');
-    } catch (e) {}
-  }
-
-  if (btnReleaseLantern) btnReleaseLantern.addEventListener('click', releaseSkyLantern);
-  if (skyWishInput) {
-    skyWishInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') releaseSkyLantern();
-    });
-  }
 
   // Party Action Toolbar buttons
   const btnBlastConfetti = document.getElementById('btn-blast-confetti');
