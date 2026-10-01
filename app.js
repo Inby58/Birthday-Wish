@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     wishes.forEach((item, index) => {
       const lamp = document.createElement('div');
-      lamp.className = 'pelita-lamp';
+      lamp.className = `pelita-lamp pelita-theme-${index}`;
       lamp.id = `pelita-lamp-${index}`;
       lamp.setAttribute('role', 'button');
       lamp.setAttribute('tabindex', '0');
@@ -295,22 +295,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
       lamp.innerHTML = `
         <div class="pelita-aura"></div>
+        
+        <!-- Curved Organic Flame with Glowing Core -->
         <div class="pelita-flame-wrap">
-          <div class="pelita-wick"></div>
-          <div class="pelita-flame"></div>
-          <div class="pelita-sparks"></div>
-        </div>
-        <div class="pelita-vessel">
-          <div class="pelita-spout"></div>
-          <div class="pelita-rim"></div>
-          <div class="pelita-belly">
-            <span class="pelita-songket-icon">✦</span>
+          <div class="pelita-flame">
+            <div class="flame-core"></div>
           </div>
-          <div class="pelita-handle"></div>
         </div>
-        <div class="pelita-pedestal">
-          <span class="pelita-number">#${index + 1}</span>
+
+        <!-- Metallic Wick Tube Assembly -->
+        <div class="pelita-wick-tube-wrap">
+          <div class="pelita-wick-tip"></div>
+          <div class="pelita-wick-tube"></div>
         </div>
+
+        <!-- Authentic Pelita Canister with Brass Cap & Hanger Bracket -->
+        <div class="pelita-canister-wrap">
+          <div class="pelita-bracket">
+            <div class="bracket-hole"></div>
+          </div>
+          <div class="pelita-brass-cap">
+            <div class="cap-collar"></div>
+            <div class="cap-knurl"></div>
+          </div>
+          <div class="pelita-can">
+            <div class="can-sheen"></div>
+            <div class="can-badge">
+              <span class="can-star">✦</span>
+              <span class="can-num">#${index + 1}</span>
+            </div>
+            <div class="can-base-rim"></div>
+          </div>
+        </div>
+
         <span class="pelita-state-label">Tekan Nyala</span>
       `;
 

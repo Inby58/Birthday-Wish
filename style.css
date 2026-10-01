@@ -1107,183 +1107,298 @@ body {
   align-items: center;
   justify-content: flex-end;
   position: relative;
-  width: 86px;
-  min-height: 168px;
+  width: 92px;
+  min-height: 195px;
   cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
 }
 
 .pelita-lamp:hover {
-  transform: translateY(-6px) scale(1.05);
+  transform: translateY(-8px) scale(1.05);
 }
 
 .pelita-lamp:active {
   transform: scale(0.96);
 }
 
-/* Ambient Golden Aura (Glows when lit) */
+/* Ambient Soft Golden Halo Aura behind flame (matches glowing halo in picture) */
 .pelita-aura {
   position: absolute;
-  top: -10px;
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 95px;
-  height: 95px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 211, 105, 0.45) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.55) 0%, rgba(255, 111, 0, 0.25) 45%, transparent 70%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
+  filter: blur(10px);
   z-index: 1;
 }
 
 .pelita-lamp.lit .pelita-aura {
   opacity: 1;
-  animation: auraGlow 2.8s infinite alternate ease-in-out;
+  animation: pelitaAuraPulse 2.8s infinite alternate ease-in-out;
 }
 
-@keyframes auraGlow {
-  0% { transform: translateX(-50%) scale(0.92); opacity: 0.7; }
+@keyframes pelitaAuraPulse {
+  0% { transform: translateX(-50%) scale(0.9); opacity: 0.7; }
   100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
 }
 
-/* Flame & Wick Section */
+/* Flame Container & Slender S-Curved Flame (Faithful to reference image) */
 .pelita-flame-wrap {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  width: 32px;
+  height: 64px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: -2px;
   z-index: 15;
 }
 
-.pelita-wick {
-  width: 3.5px;
-  height: 10px;
-  background: #2a150c;
-  border-radius: 2px;
-  margin-top: -2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-}
-
 .pelita-flame {
-  width: 18px;
-  height: 28px;
-  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
-  background: radial-gradient(ellipse at bottom, #ffffff 0%, #fff2db 20%, #ffd369 55%, #e58e26 85%, transparent 100%);
-  box-shadow: 0 0 16px #ffd369, 0 0 32px #e5a93b, 0 0 45px rgba(212, 175, 55, 0.8);
+  width: 22px;
+  height: 58px;
+  /* Organic slender curved teardrop shape like in user's image */
+  border-radius: 50% 50% 35% 35% / 78% 78% 22% 22%;
+  background: linear-gradient(to top, #ffffff 0%, #fff066 18%, #ff9800 45%, #f44336 82%, #d63031 100%);
+  box-shadow: 
+    0 0 16px rgba(255, 235, 59, 0.95),
+    0 0 35px rgba(255, 152, 0, 0.8),
+    0 0 55px rgba(244, 67, 54, 0.55);
+  transform-origin: bottom center;
   opacity: 0;
   transform: scale(0.1);
-  transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+/* Inner white-yellow glowing heart core (as seen in picture) */
+.flame-core {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 25px;
+  border-radius: 50% 50% 35% 35% / 70% 70% 30% 30%;
+  background: radial-gradient(ellipse at bottom, #ffffff 30%, #fffb91 80%, transparent 100%);
+  filter: blur(0.5px);
 }
 
 .pelita-lamp.lit .pelita-flame {
   opacity: 1;
   transform: scale(1);
-  animation: flameFlickerPelita 0.8s infinite alternate ease-in-out;
+  animation: flameSwayPelita 1.8s infinite alternate ease-in-out;
 }
 
-@keyframes flameFlickerPelita {
-  0% { transform: scale(1) rotate(-2deg); }
-  50% { transform: scale(1.1, 0.95) rotate(2deg); }
-  100% { transform: scale(0.95, 1.08) rotate(-1deg); }
+@keyframes flameSwayPelita {
+  0% { transform: scale(1) rotate(-1.5deg) skewX(-1.5deg); }
+  25% { transform: scale(1.03, 0.97) rotate(2deg) skewX(2deg); }
+  50% { transform: scale(0.97, 1.04) rotate(-0.5deg) skewX(-0.5deg); }
+  75% { transform: scale(1.02, 0.98) rotate(1.5deg) skewX(1deg); }
+  100% { transform: scale(0.99, 1.01) rotate(-2deg) skewX(-1deg); }
 }
 
-/* Traditional Brass Pelita Vessel Body */
-.pelita-vessel {
+/* Metallic Silver Wick Tube (as seen in picture) */
+.pelita-wick-tube-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 12;
+  margin-bottom: -1px;
+}
+
+.pelita-wick-tip {
+  width: 3px;
+  height: 3px;
+  background: #111111;
+  border-radius: 2px 2px 0 0;
+}
+
+.pelita-wick-tube {
+  width: 5px;
+  height: 14px;
+  background: linear-gradient(to right, #8a8a8a 0%, #ffffff 45%, #a6a6a6 70%, #545454 100%);
+  border-radius: 1px 1px 0 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Authentic Pelita Canister Assembly */
+.pelita-canister-wrap {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 42px;
-  z-index: 5;
+  width: 80px;
+  z-index: 8;
 }
 
-.pelita-spout {
+/* Hanging Metal Bracket Tab with hole at back right (Matches picture 2 & 3) */
+.pelita-bracket {
+  position: absolute;
+  right: 5px;
+  top: -18px;
   width: 14px;
-  height: 12px;
-  background: linear-gradient(to bottom, #d4af37, #8c680a);
-  clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
-  margin-bottom: -1px;
-}
-
-.pelita-rim {
-  width: 32px;
-  height: 5px;
-  background: linear-gradient(to right, #aa8012, #f5d77f, #aa8012);
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.pelita-belly {
-  width: 58px;
-  height: 44px;
-  border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
-  background: radial-gradient(circle at 35% 35%, #fff2db 0%, #e5c158 35%, #aa8012 75%, #4a2d1d 100%);
-  border: 1.5px solid #fff6d6;
-  box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.6),
-    inset 0 2px 5px rgba(255, 255, 255, 0.6);
+  height: 30px;
+  background: linear-gradient(to right, #9e9e9e 0%, #ffffff 40%, #757575 80%, #424242 100%);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.6);
   display: flex;
+  justify-content: center;
+  padding-top: 4px;
+  z-index: 3;
+}
+
+.bracket-hole {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #180f0c;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* Golden Brass Screw-on Cap Collar */
+.pelita-brass-cap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 9;
+}
+
+.cap-collar {
+  width: 26px;
+  height: 4px;
+  background: linear-gradient(to right, #aa8012 0%, #f9e29d 40%, #aa8012 85%, #66460b 100%);
+  border-radius: 3px 3px 0 0;
+}
+
+.cap-knurl {
+  width: 38px;
+  height: 12px;
+  background: linear-gradient(to right, #8c680a 0%, #e5c158 35%, #fff5d1 50%, #b8860b 75%, #593e06 100%);
+  border-radius: 4px 4px 1px 1px;
+  border: 1px solid rgba(255, 246, 214, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+}
+
+/* Cylindrical Canister Body */
+.pelita-can {
+  width: 76px;
+  height: 60px;
+  position: relative;
+  border-radius: 14px 14px 4px 4px;
+  margin-top: -1px;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 24px rgba(0, 0, 0, 0.65),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
+  z-index: 5;
   transition: box-shadow 0.4s ease;
 }
 
-.pelita-lamp.lit .pelita-belly {
+.pelita-lamp.lit .pelita-can {
   box-shadow: 
-    0 10px 25px rgba(0, 0, 0, 0.7),
-    0 0 24px rgba(212, 175, 55, 0.6),
-    inset 0 2px 5px rgba(255, 255, 255, 0.8);
+    0 12px 28px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(212, 175, 55, 0.35);
 }
 
-.pelita-songket-icon {
-  font-size: 0.95rem;
-  color: #3b220c;
-  line-height: 1;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-}
-
-.pelita-handle {
+/* Shoulder curved sheen highlight */
+.can-sheen {
   position: absolute;
-  right: -8px;
-  top: 8px;
-  width: 14px;
-  height: 24px;
-  border: 3px solid #aa8012;
-  border-left: none;
-  border-radius: 0 12px 12px 0;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  top: 4px;
+  left: 8px;
+  width: 62%;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
-/* Brass Pedestal / Stand with Number Badge */
-.pelita-pedestal {
+.can-badge {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 16px;
-  background: linear-gradient(to right, #6b4c10, #d4af37, #6b4c10);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 246, 214, 0.7);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  margin-top: 3px;
-  z-index: 5;
+  z-index: 6;
+  margin-top: 8px;
 }
 
-.pelita-number {
-  font-size: 0.65rem;
+.can-star {
+  font-size: 0.9rem;
+  color: #211511;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+  line-height: 1;
+}
+
+.can-num {
+  font-size: 0.7rem;
   font-weight: 800;
   color: #211511;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
   letter-spacing: 0.5px;
+  margin-top: 1px;
+}
+
+.can-base-rim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0.4));
+}
+
+/* ========================================================
+   THEMATIC FINISHES MATCHING REFERENCE IMAGE & MALAY PALETTE
+   ======================================================== */
+
+/* Lamp 1: Golden Brass (matches Lamp 1 in picture) */
+.pelita-theme-0 .pelita-can {
+  background: linear-gradient(to right, #694d13 0%, #99731a 18%, #dfb23e 38%, #fff0b8 50%, #b88b1b 75%, #47320b 100%);
+  border: 1px solid rgba(255, 235, 160, 0.45);
+}
+
+/* Lamp 2: Emerald Green (matches Lamp 2 in picture) */
+.pelita-theme-1 .pelita-can {
+  background: linear-gradient(to right, #113c23 0%, #1d5f38 18%, #27ae60 38%, #9cf3be 50%, #1e824c 75%, #0d2818 100%);
+  border: 1px solid rgba(156, 243, 190, 0.45);
+}
+.pelita-theme-1 .pelita-bracket {
+  background: linear-gradient(to right, #1d5f38 0%, #9cf3be 50%, #164f2c 100%);
+}
+
+/* Lamp 3: Deep Jade / Teal Glass (matches Lamp 3 in picture) */
+.pelita-theme-2 .pelita-can {
+  background: linear-gradient(to right, #09333a 0%, #125560 18%, #16a085 38%, #99f3e0 50%, #117a65 75%, #062328 100%);
+  border: 1px solid rgba(153, 243, 224, 0.45);
+}
+.pelita-theme-2 .pelita-bracket {
+  background: linear-gradient(to right, #125560 0%, #99f3e0 50%, #0d3e47 100%);
+}
+
+/* Lamp 4: Warm Bronze / Copper */
+.pelita-theme-3 .pelita-can {
+  background: linear-gradient(to right, #4d2314 0%, #873e22 18%, #d35400 38%, #ffd2bc 50%, #b3420f 75%, #38160a 100%);
+  border: 1px solid rgba(255, 210, 188, 0.45);
+}
+
+/* Lamp 5: Silk Champagne Gold */
+.pelita-theme-4 .pelita-can {
+  background: linear-gradient(to right, #5c4524 0%, #8c6a38 18%, #d4af37 38%, #fbf3db 50%, #aa8012 75%, #423017 100%);
+  border: 1px solid rgba(251, 243, 219, 0.45);
 }
 
 /* Dynamic State Pill below lamp */
@@ -2748,67 +2863,78 @@ body {
   }
 
   .pelita-stand-shelf {
-    padding: 16px 6px 14px;
+    padding: 16px 4px 14px;
     border-radius: 16px;
   }
 
   .pelita-rack {
-    gap: 6px;
+    gap: 4px;
   }
 
   .pelita-lamp {
-    width: 58px;
-    min-height: 135px;
+    width: 60px;
+    min-height: 155px;
     padding-bottom: 2px;
   }
 
   .pelita-flame-wrap {
-    top: 10px;
+    width: 22px;
+    height: 48px;
+    margin-bottom: -2px;
   }
 
   .pelita-flame {
-    width: 13px;
-    height: 20px;
+    width: 16px;
+    height: 42px;
   }
 
-  .pelita-vessel {
-    margin-top: 32px;
+  .flame-core {
+    width: 7px;
+    height: 18px;
   }
 
-  .pelita-spout {
+  .pelita-wick-tube {
+    width: 4px;
+    height: 10px;
+  }
+
+  .pelita-canister-wrap {
+    width: 58px;
+  }
+
+  .cap-collar {
+    width: 18px;
+    height: 3px;
+  }
+
+  .cap-knurl {
+    width: 28px;
+    height: 9px;
+  }
+
+  .pelita-bracket {
+    right: 3px;
+    top: -14px;
     width: 10px;
-    height: 8px;
+    height: 22px;
   }
 
-  .pelita-rim {
-    width: 24px;
+  .bracket-hole {
+    width: 4px;
     height: 4px;
   }
 
-  .pelita-belly {
-    width: 44px;
-    height: 33px;
+  .pelita-can {
+    width: 56px;
+    height: 46px;
   }
 
-  .pelita-songket-icon {
-    font-size: 0.75rem;
+  .can-star {
+    font-size: 0.72rem;
   }
 
-  .pelita-handle {
-    right: -6px;
-    width: 10px;
-    height: 18px;
-    border-width: 2px;
-  }
-
-  .pelita-pedestal {
-    width: 36px;
-    height: 13px;
-    margin-top: 2px;
-  }
-
-  .pelita-number {
-    font-size: 0.55rem;
+  .can-num {
+    font-size: 0.58rem;
   }
 
   .pelita-state-label {
