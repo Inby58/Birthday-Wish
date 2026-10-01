@@ -137,9 +137,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnToStage2 = document.getElementById('btn-to-stage-2');
   const guideStage1 = document.getElementById('guide-stage-1');
   let envelopeOpened = false;
+  let cardSettled = false;
 
   function openEnvelope() {
-    if (envelopeOpened) return;
+    if (envelopeOpened) {
+      if (cardSettled) {
+        goToStage(2);
+      }
+      return;
+    }
     envelopeOpened = true;
 
     if (navigator.vibrate) {
@@ -165,15 +171,24 @@ document.addEventListener('DOMContentLoaded', () => {
       window.birthdayConfetti.burst(x, y, 45);
     }
 
+    // Immediately hide the opening button
     if (btnOpenEnvelope) btnOpenEnvelope.style.display = 'none';
-    if (btnToStage2) {
-      btnToStage2.style.display = 'inline-flex';
-    }
 
-    // Auto transition to Stage 2 after invitation reveals
+    // Reveal next stage button once card finishes rising smoothly (~1400ms)
     setTimeout(() => {
-      goToStage(2);
-    }, 1800);
+      cardSettled = true;
+      if (btnToStage2) {
+        btnToStage2.style.display = 'inline-flex';
+        btnToStage2.classList.add('pulse-ready');
+      }
+    }, 1400);
+
+    // Auto transition to Stage 2 with generous reading time (5.5s)
+    setTimeout(() => {
+      if (currentStage === 1) {
+        goToStage(2);
+      }
+    }, 5500);
   }
 
   if (btnOpenEnvelope) btnOpenEnvelope.addEventListener('click', openEnvelope);
