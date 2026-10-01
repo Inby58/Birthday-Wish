@@ -29,17 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Document title
     document.title = `Happy Birthday ${name}! ✨ A Special Celebration`;
 
-    // Header & Plaque
+    // Header & Titles
     const headerTitle = cfg.shortName ? `${cfg.shortName}'s Birthday` : `${name}'s Birthday`;
-    document.getElementById('header-logo-text').textContent = headerTitle;
-    document.getElementById('door-plaque-text').textContent = `FOR ${name.toUpperCase()}`;
-    document.getElementById('door-main-heading').textContent = `Special Celebration for ${name}`;
-    if (cfg.doorSubtitle) {
-      document.getElementById('door-desc').textContent = cfg.doorSubtitle;
-    }
+    const headerLogoEl = document.getElementById('header-logo-text');
+    if (headerLogoEl) headerLogoEl.textContent = headerTitle;
+
+    const invHeading = document.getElementById('invitation-main-heading');
+    if (invHeading) invHeading.textContent = `Warkah Undangan Buat ${name}`;
+
+    const invDesc = document.getElementById('invitation-desc');
+    if (invDesc && cfg.invitationSubtitle) invDesc.textContent = cfg.invitationSubtitle;
 
     // Stage 2 Neon
-    document.getElementById('neon-birthday-name').textContent = `HAPPY ${age.toUpperCase()}BIRTHDAY, ${name.toUpperCase()}!`;
+    const neonName = document.getElementById('neon-birthday-name');
+    if (neonName) neonName.textContent = `SELAMAT HARI LAHIR, ${name.toUpperCase()}!`;
 
     // Stage 4 Cake
     if (cfg.age) {
@@ -129,18 +132,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ================= STAGE 1: DOOR =================
-  const doorLeaf = document.getElementById('door-leaf');
-  const btnKnock = document.getElementById('btn-knock');
+  // ================= STAGE 1: WARKAH UNDANGAN DIRAJA =================
+  const royalEnvelope = document.getElementById('royal-envelope');
+  const btnOpenEnvelope = document.getElementById('btn-open-envelope');
+  const btnToStage2 = document.getElementById('btn-to-stage-2');
   const guideStage1 = document.getElementById('guide-stage-1');
-  let doorOpened = false;
+  let envelopeOpened = false;
 
-  function openDoor() {
-    if (doorOpened) return;
-    doorOpened = true;
+  function openEnvelope() {
+    if (envelopeOpened) return;
+    envelopeOpened = true;
 
     if (navigator.vibrate) {
-      try { navigator.vibrate(40); } catch (e) {}
+      try { navigator.vibrate(45); } catch (e) {}
     }
 
     if (guideStage1) {
@@ -148,88 +152,109 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (window.birthdayAudio) {
-      window.birthdayAudio.playKnock();
+      window.birthdayAudio.playWaxBreak();
     }
 
-    doorLeaf.classList.add('shake');
+    if (royalEnvelope) {
+      royalEnvelope.classList.add('unsealed');
+    }
 
+    if (window.birthdayConfetti) {
+      const rect = royalEnvelope ? royalEnvelope.getBoundingClientRect() : null;
+      const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+      const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
+      window.birthdayConfetti.burst(x, y, 45);
+    }
+
+    if (btnOpenEnvelope) btnOpenEnvelope.style.display = 'none';
+    if (btnToStage2) {
+      btnToStage2.style.display = 'inline-flex';
+    }
+
+    // Auto transition to Stage 2 after invitation reveals
     setTimeout(() => {
-      doorLeaf.classList.remove('shake');
-      doorLeaf.classList.add('open');
-
-      if (window.birthdayConfetti) {
-        window.birthdayConfetti.burst(window.innerWidth / 2, window.innerHeight / 2, 40);
-      }
-
-      // Auto start melody if configured
-      if (cfg.audio && cfg.audio.autoPlayMelody && window.birthdayAudio) {
-        setTimeout(() => {
-          window.birthdayAudio.startBackgroundMusic();
-          updateMusicButtonState(true);
-        }, 800);
-      }
-
-      // Transition to Stage 2
-      setTimeout(() => {
-        goToStage(2);
-      }, 1400);
-    }, 450);
+      goToStage(2);
+    }, 1800);
   }
 
-  if (btnKnock) btnKnock.addEventListener('click', openDoor);
-  if (doorLeaf) doorLeaf.addEventListener('click', openDoor);
+  if (btnOpenEnvelope) btnOpenEnvelope.addEventListener('click', openEnvelope);
+  if (royalEnvelope) royalEnvelope.addEventListener('click', openEnvelope);
+  if (btnToStage2) btnToStage2.addEventListener('click', () => goToStage(2));
 
-  // ================= STAGE 2: LIGHTS (WALL SOCKET SWITCH) =================
-  const wallSwitch = document.getElementById('wall-switch');
+  // ================= STAGE 2: PALUAN GONG DIRAJA =================
+  const gongDisc = document.getElementById('gong-disc');
+  const gongMallet = document.getElementById('gong-mallet');
+  const gongWave = document.getElementById('gong-wave');
   const lightScene = document.getElementById('light-scene');
+  const btnStrikeGong = document.getElementById('btn-strike-gong');
   const btnToStage3 = document.getElementById('btn-to-stage-3');
   const guideStage2 = document.getElementById('guide-stage-2');
-  let lightsTurnedOn = false;
+  let gongStruck = false;
 
-  function turnOnLights() {
-    if (lightsTurnedOn) return;
-    lightsTurnedOn = true;
-
-    if (wallSwitch) {
-      wallSwitch.classList.add('is-on');
-    }
+  function strikeGong() {
+    if (gongStruck) return;
+    gongStruck = true;
 
     if (navigator.vibrate) {
-      try { navigator.vibrate(35); } catch (e) {}
+      try { navigator.vibrate([60, 40, 80]); } catch (e) {}
     }
 
     if (guideStage2) {
       guideStage2.classList.add('fade-out');
     }
 
-    if (window.birthdayAudio) {
-      window.birthdayAudio.playSwitch();
+    // Swing mallet animation
+    if (gongMallet) {
+      gongMallet.classList.add('swing');
     }
 
+    // Strike impact sound & golden resonance wave upon mallet contact (~160ms)
     setTimeout(() => {
-      lightScene.classList.add('lights-on');
-
       if (window.birthdayAudio) {
-        window.birthdayAudio.playFanfare();
+        window.birthdayAudio.playGong();
+      }
+
+      if (gongDisc) {
+        gongDisc.classList.add('striking');
+      }
+
+      if (gongWave) {
+        gongWave.classList.add('ripple');
       }
 
       if (window.birthdayConfetti) {
-        window.birthdayConfetti.burst(window.innerWidth / 2, window.innerHeight * 0.4, 50);
+        const rect = gongDisc ? gongDisc.getBoundingClientRect() : null;
+        const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+        const y = rect ? rect.top + rect.height / 2 : window.innerHeight * 0.4;
+        window.birthdayConfetti.burst(x, y, 55);
       }
 
-      btnToStage3.style.display = 'inline-flex';
-    }, 250);
+      // Illuminate royal hall and marquee banner
+      setTimeout(() => {
+        if (lightScene) lightScene.classList.add('lights-on');
+
+        if (cfg.audio && cfg.audio.autoPlayMelody && window.birthdayAudio) {
+          window.birthdayAudio.startBackgroundMusic();
+          updateMusicButtonState(true);
+        }
+
+        if (btnStrikeGong) btnStrikeGong.style.display = 'none';
+        if (btnToStage3) btnToStage3.style.display = 'inline-flex';
+      }, 500);
+    }, 180);
   }
 
-  if (wallSwitch) {
-    wallSwitch.addEventListener('click', turnOnLights);
-    wallSwitch.addEventListener('keydown', (e) => {
+  if (btnStrikeGong) btnStrikeGong.addEventListener('click', strikeGong);
+  if (gongDisc) {
+    gongDisc.addEventListener('click', strikeGong);
+    gongDisc.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        turnOnLights();
+        strikeGong();
       }
     });
   }
+  if (btnToStage3) btnToStage3.addEventListener('click', () => goToStage(3));
 
   if (btnToStage3) btnToStage3.addEventListener('click', () => {
     goToStage(3);
@@ -246,11 +271,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let balloonsInitialized = false;
 
   const balloonColors = [
-    '#ff758c', // Sunset Rose
-    '#fda085', // Warm Peach
-    '#ffd369', // Champagne Gold
-    '#e056fd', // Lavender
-    '#ff9ff3'  // Pastel Pink
+    '#d4af37', // Imperial Songket Gold
+    '#3d261e', // Rich Cocoa Brown
+    '#27553f', // Emerald Songket Green
+    '#aa8012', // Antique Gold
+    '#e8d5b5'  // Silk Champagne
   ];
 
   function initBalloons() {
@@ -498,11 +523,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let matchedPairsCount = 0;
   const TOTAL_PAIRS = 3;
 
-  // Uncle Makjon's signature pairs
+  // Makjon's signature pairs
   const cardData = [
-    { id: 'legend', icon: '👑', title: 'The Legend', subtitle: "World's Best Uncle" },
-    { id: 'cool',   icon: '🕶️', title: 'Cool Uncle', subtitle: "Sempoi & Stylish" },
-    { id: 'kopi',   icon: '☕', title: 'Kopi King',  subtitle: "Santai & Chill" }
+    { id: 'legend', icon: '👑', title: 'The Legend', subtitle: "Ikon Keluarga" },
+    { id: 'cool',   icon: '🕶️', title: 'Cool & Sempoi', subtitle: "Gaya Tersendiri" },
+    { id: 'kopi',   icon: '☕', title: 'Kopi & Santai',  subtitle: "Tenang & Santai" }
   ];
 
   function createMemoryDeck() {
@@ -679,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
         giftPadlockWrap.classList.add('rattle');
       }
       if (window.birthdayAudio) window.birthdayAudio.playCardMismatch();
-      showToast("🔒 Vault is locked! Match all 3 pairs below to open Uncle Makjon's gift!");
+      showToast("🔒 Vault is locked! Match all 3 pairs below to open Makjon's gift!");
 
       // Scroll smoothly to memory game
       if (memoryGameSection) {
@@ -767,18 +792,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnReplay) {
     btnReplay.addEventListener('click', () => {
-      // Reset state for full replay experience
-      doorOpened = false;
-      doorLeaf.classList.remove('open', 'shake');
+      // Reset Stage 1 (Warkah Diraja)
+      envelopeOpened = false;
+      if (royalEnvelope) royalEnvelope.classList.remove('unsealed');
+      if (btnOpenEnvelope) btnOpenEnvelope.style.display = 'inline-flex';
+      if (btnToStage2) btnToStage2.style.display = 'none';
       if (guideStage1) {
         guideStage1.classList.remove('fade-out');
         guideStage1.style.display = 'inline-flex';
       }
 
-      lightsTurnedOn = false;
-      if (wallSwitch) wallSwitch.classList.remove('is-on');
+      // Reset Stage 2 (Paluan Gong Diraja)
+      gongStruck = false;
+      if (gongDisc) gongDisc.classList.remove('striking');
+      if (gongMallet) gongMallet.classList.remove('swing');
+      if (gongWave) gongWave.classList.remove('ripple');
       if (lightScene) lightScene.classList.remove('lights-on');
-      btnToStage3.style.display = 'none';
+      if (btnStrikeGong) btnStrikeGong.style.display = 'inline-flex';
+      if (btnToStage3) btnToStage3.style.display = 'none';
       if (guideStage2) {
         guideStage2.classList.remove('fade-out');
         guideStage2.style.display = 'inline-flex';

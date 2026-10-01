@@ -45,7 +45,7 @@ class BirthdayAudioEngine {
     return this.isMuted;
   }
 
-  // Knock on wooden door effect
+  // Knock on wooden door effect (kept for backward compatibility)
   playKnock() {
     this.init();
     if (this.isMuted) return;
@@ -98,6 +98,76 @@ class BirthdayAudioEngine {
 
     osc.start(t);
     osc.stop(t + 0.06);
+  }
+
+  // Wax seal break and royal envelope unsealing
+  playWaxBreak() {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+
+    // Wax snap / crackle
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(950, t);
+    osc.frequency.exponentialRampToValueAtTime(120, t + 0.07);
+    gain.gain.setValueAtTime(0.7, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+    osc.start(t);
+    osc.stop(t + 0.09);
+
+    // Paper slide / soft golden chime
+    this.playBell(t + 0.06, 880, 0.45, 0.25);
+    this.playBell(t + 0.14, 1174.66, 0.5, 0.25);
+  }
+
+  // Deep resonant Royal Gong strike with rich harmonic reverberation
+  playGong() {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+
+    // Resonant Gong partials: fundamental + rich bronze overtones
+    const partials = [
+      { freq: 146.83, gain: 0.85, decay: 3.2 },  // D3 fundamental
+      { freq: 220.00, gain: 0.55, decay: 2.8 },  // A3 fifth
+      { freq: 369.99, gain: 0.40, decay: 2.2 },  // F#4 overtone
+      { freq: 587.33, gain: 0.25, decay: 1.8 },  // D5 shimmer
+      { freq: 880.00, gain: 0.15, decay: 1.2 }   // A5 sparkle
+    ];
+
+    partials.forEach(p => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(p.freq, t);
+      osc.frequency.exponentialRampToValueAtTime(p.freq * 0.98, t + p.decay);
+
+      gain.gain.setValueAtTime(0.001, t);
+      gain.gain.linearRampToValueAtTime(p.gain, t + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + p.decay);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.start(t);
+      osc.stop(t + p.decay + 0.1);
+    });
+
+    // Metallic strike click (beater impact)
+    const hitOsc = this.ctx.createOscillator();
+    const hitGain = this.ctx.createGain();
+    hitOsc.type = 'triangle';
+    hitOsc.frequency.setValueAtTime(280, t);
+    hitOsc.frequency.exponentialRampToValueAtTime(50, t + 0.06);
+    hitGain.gain.setValueAtTime(0.65, t);
+    hitGain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+    hitOsc.connect(hitGain);
+    hitGain.connect(this.masterGain);
+    hitOsc.start(t);
+    hitOsc.stop(t + 0.08);
   }
 
   // Balloon pop sound with festive chime

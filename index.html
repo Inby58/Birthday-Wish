@@ -44,20 +44,20 @@
     <div class="logo-container">
       <span class="logo-icon">🎂</span>
       <div class="logo-text-group">
-        <span class="logo-text" id="header-logo-text">Uncle Makjon</span>
+        <span class="logo-text" id="header-logo-text">Makjon</span>
         <span class="logo-author">by Izzat Nadzmi</span>
       </div>
     </div>
 
     <!-- Navigation Dots -->
     <nav class="stage-tracker" id="stage-tracker">
-      <button class="stage-step active" data-stage="1" id="nav-step-1" aria-label="Stage 1: Door">
+      <button class="stage-step active" data-stage="1" id="nav-step-1" aria-label="Stage 1: Warkah">
         <span class="step-number">1</span>
-        <span class="step-text">Door</span>
+        <span class="step-text">Warkah</span>
       </button>
-      <button class="stage-step" data-stage="2" id="nav-step-2" aria-label="Stage 2: Lights">
+      <button class="stage-step" data-stage="2" id="nav-step-2" aria-label="Stage 2: Gong">
         <span class="step-number">2</span>
-        <span class="step-text">Lights</span>
+        <span class="step-text">Gong</span>
       </button>
       <button class="stage-step" data-stage="3" id="nav-step-3" aria-label="Stage 3: Balloons">
         <span class="step-number">3</span>
@@ -92,112 +92,147 @@
       <span>Made with ❤️ by <strong>Izzat Nadzmi Bin Yahaya</strong></span>
     </div>
 
-    <!-- ================= STAGE 1: THE DOOR ================= -->
+    <!-- ================= STAGE 1: WARKAH UNDANGAN DIRAJA ================= -->
     <section class="stage-section active" id="stage-1">
-      <span class="title-script">A Special Invitation</span>
-      <h1 class="stage-heading" id="door-main-heading">Someone Special is Celebrating!</h1>
-      <p class="stage-desc" id="door-desc">A wonderful surprise has been prepared behind this door. Knock gently to step inside the celebration!</p>
+      <span class="title-script">Keberangkatan Keraian</span>
+      <h1 class="stage-heading" id="invitation-main-heading">Warkah Undangan Diraja</h1>
+      <p class="stage-desc" id="invitation-desc">Satu warkah eksklusif telah disiapkan khas sempena sambutan hari lahir Makjon. Buka meterai lilin emas untuk melangkah masuk ke majlis!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-1">
-        <span class="guide-arrow">👉</span> Tap door or button to knock!
+        <span class="guide-arrow">👉</span> Tekan meterai emas atau butang untuk membuka warkah!
       </div>
 
-      <div class="door-scene">
-        <div class="door-frame">
-          <div class="door-inner-glow">
-            <span>✨ Welcome In! ✨</span>
+      <div class="envelope-scene">
+        <div class="royal-envelope" id="royal-envelope" role="button" tabindex="0" title="Tekan untuk membuka warkah!">
+          <!-- Envelope Flap (Top Fold) -->
+          <div class="envelope-flap" id="envelope-flap"></div>
+          
+          <!-- Golden Royal Wax Seal -->
+          <div class="envelope-wax-seal" id="envelope-wax-seal">
+            <span class="wax-seal-emblem">★</span>
+            <span class="wax-seal-text">MAKJON</span>
           </div>
-          <div class="door-leaf" id="door-leaf">
-            <div class="door-panel">
-              <div class="door-plaque" id="door-plaque-text">VIP GUEST</div>
-            </div>
-            <div class="door-knocker" id="door-knocker"></div>
-            <div class="door-panel">
-              <span style="font-size: 1.8rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">🗝️</span>
-            </div>
-            <div class="door-handle"></div>
+
+          <!-- Envelope Pocket (Front) -->
+          <div class="envelope-pocket">
+            <div class="envelope-songket-border"></div>
+            <div class="envelope-plaque">VIP CELEBRATION • MAKJON</div>
+          </div>
+
+          <!-- Revealed Royal Letter Card (Slides up on unseal) -->
+          <div class="invitation-card" id="invitation-card">
+            <div class="card-crest">👑</div>
+            <h3 class="card-title">Dipersilakan Masuk</h3>
+            <p class="card-subtitle">Keraian Hari Lahir Makjon Bermula ✨</p>
+            <span class="card-sparkle">✦ ✦ ✦</span>
           </div>
         </div>
       </div>
 
-      <button class="btn-primary" id="btn-knock">
-        <span>🚪</span> Knock on the Door!
-      </button>
+      <div style="margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <button class="btn-primary" id="btn-open-envelope">
+          <span>✉️</span> Buka Warkah Undangan
+        </button>
+        <button class="btn-gold" id="btn-to-stage-2" style="display: none;">
+          <span>👑</span> Melangkah Masuk Ke Dewan
+        </button>
+      </div>
     </section>
 
-    <!-- ================= STAGE 2: LIGHTS ON ================= -->
+    <!-- ================= STAGE 2: PALUAN GONG DIRAJA ================= -->
     <section class="stage-section" id="stage-2">
-      <span class="title-script">Set the Mood</span>
-      <h2 class="stage-heading">It's A Bit Dark in Here...</h2>
-      <p class="stage-desc" id="lights-desc">Tap the wall socket switch to illuminate the party hall and turn on the magical lights!</p>
+      <span class="title-script">Seruan Keraian</span>
+      <h2 class="stage-heading">Paluan Gong Emas Diraja</h2>
+      <p class="stage-desc" id="lights-desc">Ketuk Gong Emas ini untuk memulakan pesta keraian dan menyalakan gemerlap lampu malam ini!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-2">
-        <span class="guide-arrow">👇</span> Tap the switch to turn on lights!
+        <span class="guide-arrow">👇</span> Ketuk Gong Emas untuk memulakan keraian!
       </div>
 
-      <!-- Tactile Wall Socket Switch -->
-      <div class="wall-switch-container">
-        <div class="wall-switch-plate" id="wall-switch" role="button" tabindex="0" title="Tap to turn on lights" aria-label="Light switch">
-          <div class="switch-screw screw-top"></div>
-          <div class="switch-bezel">
-            <div class="rocker-switch" id="rocker-switch">
-              <div class="rocker-surface top-half">
-                <span class="rocker-text">I</span>
-                <div class="switch-led" id="switch-led" title="Status Indicator"></div>
-              </div>
-              <div class="rocker-surface bottom-half">
-                <span class="rocker-text">O</span>
+      <!-- 3D Royal Gong Scene -->
+      <div class="gong-scene" id="gong-scene">
+        <div class="gong-stand">
+          <!-- Carved Timber Top Beam & Pillars with Songket Gold Accents -->
+          <div class="gong-beam">
+            <div class="gong-crest-ornament">👑</div>
+          </div>
+          <div class="gong-pillar pillar-left"></div>
+          <div class="gong-pillar pillar-right"></div>
+          <div class="gong-base base-left"></div>
+          <div class="gong-base base-right"></div>
+
+          <!-- Hanging Ropes -->
+          <div class="gong-rope rope-left"></div>
+          <div class="gong-rope rope-right"></div>
+
+          <!-- Brass Golden Gong -->
+          <div class="gong-disc" id="gong-disc" role="button" tabindex="0" title="Palu Gong Emas!">
+            <div class="gong-rim">
+              <div class="gong-inner-ring">
+                <div class="gong-boss">
+                  <span class="gong-star">✦</span>
+                </div>
               </div>
             </div>
+            <!-- Dynamic Shockwave Rings -->
+            <div class="gong-wave" id="gong-wave"></div>
           </div>
-          <div class="switch-screw screw-bottom"></div>
-          <div class="switch-plate-label">LIGHTS</div>
+
+          <!-- Striker / Mallet -->
+          <div class="gong-mallet" id="gong-mallet">
+            <div class="mallet-head"></div>
+            <div class="mallet-stick"></div>
+          </div>
+        </div>
+
+        <!-- Banquet Hall Fairy Lights & Royal Marquee Banner -->
+        <div class="light-scene" id="light-scene">
+          <div class="fairy-lights">
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+            <div class="fairy-bulb"></div>
+          </div>
+
+          <!-- Marquee Banner in Royal Gold & Espresso -->
+          <div class="neon-banner">
+            <h3 class="neon-title" id="neon-birthday-name">SELAMAT HARI LAHIR, MAKJON!</h3>
+            <p class="neon-subtitle" id="neon-birthday-sub">Keraian dirahmati penuh kegemilangan ✨</p>
+          </div>
         </div>
       </div>
 
-      <div class="light-scene" id="light-scene">
-        <!-- Fairy Lights Bulbs -->
-        <div class="fairy-lights">
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-          <div class="fairy-bulb"></div>
-        </div>
+      <div style="margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <button class="btn-primary" id="btn-strike-gong">
+          <span>🥁</span> Palu Gong Emas!
+        </button>
 
-        <!-- Neon Marquee Banner -->
-        <div class="neon-banner">
-          <h3 class="neon-title" id="neon-birthday-name">HAPPY BIRTHDAY!</h3>
-          <p class="neon-subtitle" id="neon-birthday-sub">Let the celebration begin ✨</p>
-        </div>
-      </div>
-
-      <div style="margin-top: 25px;">
         <button class="btn-gold" id="btn-to-stage-3" style="display: none;">
-          Continue to Balloons 🎈
+          Teruskan ke Belon Keraian 🎈
         </button>
       </div>
     </section>
 
     <!-- ================= STAGE 3: BALLOON POP ================= -->
     <section class="stage-section" id="stage-3">
-      <span class="title-script">Party Game</span>
-      <h2 class="stage-heading">Pop The Birthday Balloons!</h2>
-      <p class="stage-desc">Each balloon holds a secret wish & heartfelt compliment. Tap each one to burst and collect them all!</p>
+      <span class="title-script">Hajat & Ucapan</span>
+      <h2 class="stage-heading">Pecahkan Belon Keraian!</h2>
+      <p class="stage-desc">Setiap belon menyimpan doa tulus dan ucapan penuh makna khas buat Makjon. Tekan setiap satu untuk mengumpulkannya!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-3">
-        <span class="guide-arrow">👇</span> Tap each balloon to pop & reveal wishes!
+        <span class="guide-arrow">👇</span> Tekan setiap belon untuk membuka doa!
       </div>
 
       <div style="font-size: 0.95rem; color: var(--warm-gold); font-weight: 600; margin-bottom: 14px;" id="balloon-progress-text">
-        Wishes Unlocked: 0 / 5
+        Doa Terkumpul: 0 / 5
       </div>
 
       <!-- Dedicated Balloon Rack: 5 stable slots that NEVER shift or cut off -->
@@ -207,26 +242,26 @@
 
       <!-- Dedicated Unlocked Wishes Section below balloons -->
       <div class="unlocked-wishes-section" id="unlocked-wishes-section">
-        <h4 class="wishes-section-title" id="wishes-section-title" style="display: none;">Unlocked Wishes 💌</h4>
+        <h4 class="wishes-section-title" id="wishes-section-title" style="display: none;">Doa & Ucapan Buat Makjon 💌</h4>
         <div class="wishes-grid" id="wishes-card-list">
           <!-- Dynamically appended wish cards -->
         </div>
       </div>
 
       <button class="btn-gold" id="btn-to-stage-4" style="display: none; margin-top: 22px;">
-        Bring Out The Cake! 🎂
+        Bawa Keluar Kek Hari Lahir! 🎂
       </button>
     </section>
 
     <!-- ================= STAGE 4: CAKE & CANDLES ================= -->
     <section class="stage-section" id="stage-4">
-      <span class="title-script">Make A Wish</span>
-      <h2 class="stage-heading" id="cake-heading">Time to Blow the Candles!</h2>
-      <p class="stage-desc" id="cake-subtext">Close your eyes, make a silent wish in your heart, and blow out the birthday flames!</p>
+      <span class="title-script">Niatkan Hajat</span>
+      <h2 class="stage-heading" id="cake-heading">Masa Meniup Lilin!</h2>
+      <p class="stage-desc" id="cake-subtext">Niatkan doa dan hajat di hati, kemudian tiup lilin hari lahir, Makjon!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-4">
-        <span class="guide-arrow">🎂</span> Tap candles or button to blow!
+        <span class="guide-arrow">🎂</span> Tekan lilin atau butang untuk meniup!
       </div>
 
       <div class="cake-scene" id="cake-scene" title="Tap cake or candles to blow!">
@@ -267,35 +302,35 @@
       <!-- Action & Mic Option -->
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 25px;">
         <button class="btn-primary" id="btn-blow-candles">
-          🌬️ Blow Out Candles!
+          🌬️ Tiup Lilin Hari Lahir!
         </button>
 
         <button class="btn-secondary" id="btn-mic-blow">
-          🎙️ Use Microphone (Blow into your mic)
+          🎙️ Guna Mikrofon (Tiup ke arah mic telefon)
         </button>
 
         <div class="mic-meter-box" id="mic-meter-box" style="display: none;">
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Blow directly into your mic:</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Tiup terus ke mikrofon:</span>
           <div class="mic-bar">
             <div class="mic-level" id="mic-level"></div>
           </div>
         </div>
 
         <button class="btn-gold" id="btn-to-stage-5" style="display: none; margin-top: 10px;">
-          Open Your Birthday Gift! 🎁
+          Buka Hadiah Istimewa! 🎁
         </button>
       </div>
     </section>
 
     <!-- ================= STAGE 5: GIFT & LETTER ================= -->
     <section class="stage-section" id="stage-5">
-      <span class="title-script">A Special Surprise</span>
-      <h2 class="stage-heading" id="gift-heading">Uncle Makjon's Mystery Gift Box</h2>
-      <p class="stage-desc" id="gift-desc">The gift box is locked with a golden padlock! Solve Uncle Makjon's memory card challenge below to unlock the vault & reveal his birthday letter!</p>
+      <span class="title-script">Hadiah & Warkah Tulus</span>
+      <h2 class="stage-heading" id="gift-heading">Peti Rahsia Makjon</h2>
+      <p class="stage-desc" id="gift-desc">Peti hadiah ini dikunci dengan mangga emas! Selesaikan cabaran kad memori Makjon di bawah untuk membuka peti dan membaca warkah hari lahir!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-5">
-        <span class="guide-arrow">👇</span> Match the 3 pairs below to unlock the gift!
+        <span class="guide-arrow">👇</span> Padankan 3 pasangan kad di bawah untuk membuka kunci!
       </div>
 
       <!-- 3D Gift Box with Golden Padlock -->
@@ -307,7 +342,7 @@
             <div class="gift-bow">🎀</div>
 
             <!-- Luxury Golden Padlock -->
-            <div class="gift-padlock-wrap" id="gift-padlock-wrap" title="Vault Locked! Match all pairs below to unlock.">
+            <div class="gift-padlock-wrap" id="gift-padlock-wrap" title="Vault Locked! Padankan semua kad untuk membuka.">
               <div class="padlock-shackle" id="padlock-shackle"></div>
               <div class="padlock-body">
                 <span class="padlock-icon" id="padlock-icon">🔒</span>
@@ -318,32 +353,32 @@
         </div>
       </div>
 
-      <!-- Unlock Mini-Game: Uncle Makjon's Memory Challenge -->
+      <!-- Unlock Mini-Game: Makjon's Memory Challenge -->
       <div class="memory-game-section" id="memory-game-section">
         <div class="memory-game-card">
           <div class="memory-header">
             <div class="memory-badge">
               <span class="badge-lock-icon" id="badge-lock-icon">🔐</span>
-              <span>Uncle Makjon's Vault Challenge</span>
+              <span>Cabaran Memori Makjon</span>
             </div>
-            <h3 class="memory-title">Match The Pairs to Unlock The Gift!</h3>
-            <p class="memory-subtitle">Flip and find all 3 matching pairs of Uncle Makjon's signature icons to crack the lock!</p>
+            <h3 class="memory-title">Padankan Pasangan Untuk Buka Peti Hadiah!</h3>
+            <p class="memory-subtitle">Cari 3 pasangan ikon khas Makjon di bawah untuk membuka mangga emas peti hadiah!</p>
           </div>
 
           <!-- Progress / Key Counter -->
           <div class="memory-tracker">
             <div class="tracker-info">
-              <span class="tracker-label">Keys Collected:</span>
+              <span class="tracker-label">Kunci Dibuka:</span>
               <span class="tracker-count" id="tracker-count">0 / 3</span>
             </div>
             <div class="key-slots" id="key-slots">
-              <div class="key-slot" id="key-slot-0" title="Key 1">
+              <div class="key-slot" id="key-slot-0" title="Kunci 1">
                 <span class="key-icon">🗝️</span>
               </div>
-              <div class="key-slot" id="key-slot-1" title="Key 2">
+              <div class="key-slot" id="key-slot-1" title="Kunci 2">
                 <span class="key-icon">🗝️</span>
               </div>
-              <div class="key-slot" id="key-slot-2" title="Key 3">
+              <div class="key-slot" id="key-slot-2" title="Kunci 3">
                 <span class="key-icon">🗝️</span>
               </div>
             </div>
@@ -357,7 +392,7 @@
           <!-- Unlock Status Message -->
           <div class="memory-status" id="memory-status">
             <span class="status-icon" id="status-icon">💡</span>
-            <span id="memory-status-text">Tap any card to begin matching!</span>
+            <span id="memory-status-text">Tekan mana-mana kad untuk mula memadan!</span>
           </div>
         </div>
       </div>
@@ -365,18 +400,18 @@
       <!-- Unfolded Letter -->
       <div class="letter-container" id="birthday-letter">
         <div class="letter-wax-seal">★</div>
-        <div class="letter-salutation" id="letter-salutation">Dearest Uncle Makjon,</div>
+        <div class="letter-salutation" id="letter-salutation">Dearest Makjon,</div>
 
         <!-- Featured Photo Inside Letter -->
         <div class="letter-photo-wrap" id="letter-photo-wrap">
-          <img class="letter-photo" id="letter-photo-img" src="photo.jpg" alt="Uncle Makjon Celebration">
-          <div class="letter-photo-caption">Wishing you endless joy, health & blessings always ✨</div>
+          <img class="letter-photo" id="letter-photo-img" src="photo.jpg" alt="Makjon Celebration">
+          <div class="letter-photo-caption">Semoga Makjon sentiasa dikurniakan kesihatan, kebahagiaan & rahmat berpanjangan ✨</div>
         </div>
 
         <div class="letter-body" id="letter-body">
           <!-- Dynamically populated from config.js -->
         </div>
-        <div class="letter-closing" id="letter-closing">With highest respect & warmest prayers,</div>
+        <div class="letter-closing" id="letter-closing">Dengan penuh kasih, hormat & doa tulus,</div>
         <div class="letter-author" id="letter-author">Izzat Nadzmi Bin Yahaya ❤️</div>
       </div>
 

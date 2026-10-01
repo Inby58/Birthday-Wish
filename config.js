@@ -1,59 +1,59 @@
 // ==========================================
 // 🎂 BIRTHDAY CONFIGURATION
-// Personalized for Uncle Makjon ✨
+// Personalized for Makjon ✨
 // ==========================================
 
 const BIRTHDAY_CONFIG = {
   // Birthday Celebrant's Details
-  name: "Uncle Makjon",             // Main name displayed across all stages
-  shortName: "Makjon",              // Shorter version for compact navigation
-  nickname: "The Legend & Coolest Uncle", // Title or sweet descriptor
-  age: "",                          // Age (can be set or left empty)
-  date: "Today",                    // Display date
+  name: "Makjon",                    // Main name displayed across all stages
+  shortName: "Makjon",               // Shorter version for compact navigation
+  nickname: "The Legend",            // Title or descriptor
+  age: "",                           // Age (can be set or left empty)
+  date: "Today",                     // Display date
 
   // Quick greetings displayed during stages
-  doorSubtitle: "A special VIP celebration crafted with love and respect for our beloved Uncle Makjon! ✨",
-  lightsBanner: "HAPPY BIRTHDAY UNCLE MAKJON",
-  cakeTitle: "Close your eyes, make a wish in your heart, and blow out the candles, Uncle Makjon! 🎂",
+  invitationSubtitle: "Warkah undangan istimewa sempena sambutan hari lahir Makjon yang diraikan dengan penuh kasih & penghormatan! ✨",
+  lightsBanner: "SELAMAT HARI LAHIR, MAKJON!",
+  cakeTitle: "Niatkan hajat di hati dan tiup lilin hari lahir, Makjon! 🎂",
 
   // Pop-up wishes revealed when balloons are popped (5 balloons)
   balloonWishes: [
     { 
       title: "Kesihatan & Awet Muda 🌿", 
-      text: "Semoga Uncle Makjon sentiasa dikurniakan tubuh badan yang cergas sihat, panjang umur, dan kekal awet muda bergaya selalu!" 
+      text: "Semoga Makjon sentiasa dikurniakan tubuh badan yang sihat bertenaga, dipanjangkan usia, dan kekal segak bergaya selalu!" 
     },
     { 
       title: "Rezeki Melimpah Ruah 💰", 
-      text: "Moga dilapangkan rezeki seluas lautan, dipermudahkan segala urusan pekerjaan, dan sentiasa dalam keberkatan Ilahi." 
+      text: "Moga dilapangkan rezeki seluas lautan, diberkati setiap usaha, dan dipermudahkan segala urusan pekerjaan." 
     },
     { 
       title: "Ketenangan & Kebahagiaan 🕊️", 
-      text: "Semoga setiap hari dilalui dengan ketenangan jiwa, senyuman bahagia, dan dipenuhi kasih sayang bersama keluarga tercinta." 
+      text: "Semoga setiap hari dilalui dengan ketenangan jiwa, senyuman manis, dan dipenuhi kasih sayang keluarga tersayang." 
     },
     { 
-      title: "The Coolest Uncle Trophy 🏆", 
-      text: "Uncle yang paling sempoi, ceria, dan sporting! Terima kasih kerana sentiasa menjadi inspirasi dan menceriakan suasana keluarga." 
+      title: "The Legend Trophy 🏆", 
+      text: "Insan yang sentiasa tenang, sempoi, dan berjiwa murni! Terima kasih kerana sentiasa menjadi inspirasi keluarga kita." 
     },
     { 
       title: "Rahmat & Perlindungan 🤲", 
-      text: "Moga setiap langkah Uncle Makjon sentiasa dilindungi, dirahmati, dan diberkati Allah SWT di dunia dan akhirat. Amin!" 
+      text: "Moga setiap langkah Makjon sentiasa dalam naungan, lindungan, serta limpahan rahmat Allah SWT di dunia dan akhirat. Amin!" 
     }
   ],
 
   // Grand Letter content revealed inside the Gift Box
   letter: {
-    salutation: "Dearest Uncle Makjon,",
+    salutation: "Dearest Makjon,",
     paragraphs: [
-      "Selamat Hari Lahir buat Uncle Makjon yang paling sempoi, berjiwa muda, dan kami sayangi! Hari ini adalah hari yang istimewa untuk meraikan seorang uncle yang hebat, penuh teladan, dan sentiasa menceriakan kami sekeluarga.",
-      "Terima kasih atas segala kenangan indah, nasihat yang membina, gelak tawa santai, dan kasih sayang ikhlas yang Uncle kongsikan bersama kami selama ini. Kehadiran Uncle sentiasa menghidupkan suasana dan memberi aura positif kepada semua orang di sekeliling.",
-      "Semoga dipanjangkan usia dalam keberkatan, dikurniakan kesihatan yang berpanjangan, dilapangkan pintu rezeki yang melimpah ruah, dan dipermudahkan segala urusan dunia serta akhirat. Saya sentiasa mendoakan agar Uncle sekeluarga sentiasa berada dalam lindungan dan rahmat Allah SWT.",
-      "Semoga tahun ini membawa seribu satu kegembiraan baru, kejayaan yang membanggakan, serta kedamaian yang berpanjangan. Always remember how much you are loved and appreciated by our family!"
+      "Selamat Hari Lahir buat Makjon yang paling kami hormati, sayangi, dan banggakan! Hari ini adalah hari yang amat istimewa untuk meraikan seorang insan yang hebat, berwibawa, dan sentiasa menceriakan kami sekeluarga.",
+      "Terima kasih atas segala kenangan manis, bimbingan berharga, gelak tawa santai, dan kasih sayang ikhlas yang Makjon kongsikan bersama kami selama ini. Kehadiran Makjon sentiasa menghidupkan suasana dan membawa aura tenang serta positif kepada semua orang di sekeliling.",
+      "Semoga dipanjangkan usia dalam keberkatan, dikurniakan kesihatan yang berpanjangan, dilapangkan pintu rezeki yang melimpah ruah, dan dipermudahkan segala urusan dunia serta akhirat. Saya sentiasa mendoakan agar Makjon sekeluarga sentiasa berada dalam perlindungan dan rahmat Allah SWT.",
+      "Semoga tahun ini membawa seribu satu kegembiraan baru, kejayaan yang membanggakan, serta kedamaian yang berpanjangan. Always remember how deeply you are respected, cherished, and loved by our family!"
     ],
     closing: "With highest respect, love & warmest prayers,",
     author: "Izzat Nadzmi Bin Yahaya ❤️"
   },
 
-  // Special Photo displayed inside the letter (name your file "photo.jpg" in the project folder)
+  // Special Photo displayed inside the letter
   photoUrl: "photo.jpg",
 
   // Background Music Settings
