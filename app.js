@@ -174,14 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Immediately hide the opening button
     if (btnOpenEnvelope) btnOpenEnvelope.style.display = 'none';
 
-    // Reveal next stage button once card finishes rising smoothly (~1400ms)
+    // Reveal next stage button once card finishes rising smoothly (~1050ms)
     setTimeout(() => {
       cardSettled = true;
       if (btnToStage2) {
         btnToStage2.style.display = 'inline-flex';
         btnToStage2.classList.add('pulse-ready');
       }
-    }, 1400);
+    }, 1050);
 
     // Auto transition to Stage 2 with generous reading time (5.5s)
     setTimeout(() => {

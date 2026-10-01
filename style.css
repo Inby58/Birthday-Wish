@@ -469,129 +469,138 @@ body {
   perspective: 1200px;
   width: 100%;
   max-width: 380px;
-  min-height: 340px; /* Ample headroom so rising card has space to breathe */
+  min-height: 385px; /* Ample headroom so rising card has space to breathe */
   margin: 10px auto 15px;
   display: flex;
   justify-content: center;
   align-items: flex-end; /* Envelope anchored at bottom; card glides up into space */
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   box-sizing: border-box;
 }
 
 .royal-envelope {
-  width: 310px;
-  height: 200px;
-  background: linear-gradient(145deg, #2d1c16 0%, #1a100d 100%);
-  border: 2px solid rgba(212, 175, 55, 0.45);
-  border-radius: 16px;
-  box-shadow: 
-    0 16px 45px rgba(0, 0, 0, 0.75),
-    0 0 35px rgba(212, 175, 55, 0.25),
-    inset 0 1px 3px rgba(255, 255, 255, 0.2);
+  width: 320px;
+  height: 185px;
   position: relative;
   cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .royal-envelope:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 
-    0 22px 55px rgba(0, 0, 0, 0.85),
-    0 0 45px rgba(212, 175, 55, 0.4);
+  transform: translateY(-3px) scale(1.015);
 }
 
-/* Envelope Flap (Top Triangular Fold) */
-.envelope-flap {
+/* Envelope Interior (Back Lining) */
+.envelope-interior {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 155px solid transparent;
-  border-right: 155px solid transparent;
-  border-top: 108px solid #3d261e;
-  transform-origin: top center;
-  transform-style: preserve-3d;
-  backface-visibility: visible;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, z-index 0s 0.5s;
-  z-index: 10;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
-}
-
-.royal-envelope.unsealed .envelope-flap {
-  transform: rotateX(180deg);
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 30%, #3e2217 0%, #1f0f09 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 
+    0 16px 45px rgba(0, 0, 0, 0.75),
+    0 0 30px rgba(212, 175, 55, 0.2),
+    inset 0 0 35px rgba(0, 0, 0, 0.9);
   z-index: 1;
 }
 
-/* Golden Royal Wax Seal */
-.envelope-wax-seal {
+/* Revealed Royal Letter Card Inside Envelope */
+.invitation-card {
   position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  width: 58px;
-  height: 58px;
-  background: radial-gradient(circle at 35% 35%, #fff2db 0%, #e5c158 35%, #aa8012 75%, #593922 100%);
-  border-radius: 50%;
+  left: 14px;
+  right: 14px;
+  bottom: 10px;
+  height: 200px;
+  background: linear-gradient(150deg, #fffefc 0%, #fbf5e6 55%, #f4e3c3 100%);
+  border: 1.5px solid #d4af37;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.6),
-    0 0 16px rgba(212, 175, 55, 0.5),
-    inset 0 2px 4px rgba(255, 255, 255, 0.7);
-  z-index: 25;
-  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
-  border: 1.5px solid #fff6d6;
-}
-
-.wax-seal-emblem {
-  font-size: 1.2rem;
-  line-height: 1;
-  color: #211511;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-}
-
-.wax-seal-text {
-  font-size: 0.56rem;
-  font-weight: 900;
-  letter-spacing: 1.2px;
-  color: #211511;
-  text-transform: uppercase;
-  margin-top: 2px;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-}
-
-.royal-envelope:hover .envelope-wax-seal {
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 24px rgba(212, 175, 55, 0.8);
-}
-
-/* Wax seal unsealing: scales up, dissolves smoothly, and disappears cleanly */
-.royal-envelope.unsealed .envelope-wax-seal {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(1.3) rotate(15deg);
+  padding: 16px 18px;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 3;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.22s, 
+              box-shadow 0.85s ease 0.22s,
+              z-index 0s 0.32s;
   pointer-events: none;
-  visibility: hidden;
-  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, visibility 0s 0.35s;
 }
 
-/* Envelope Pocket (Front Face with Songket Trim) */
+/* When unsealed: Card emerges cleanly, clears the pocket, and floats proudly in front */
+.royal-envelope.unsealed .invitation-card {
+  transform: translateY(-165px) scale(1.02);
+  z-index: 25;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(212, 175, 55, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.card-crest {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 5px;
+  filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.4));
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: #3b220c;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+
+.card-subtitle {
+  font-size: 0.85rem;
+  color: #634328;
+  font-weight: 600;
+}
+
+.card-body-text {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #59371d;
+  font-weight: 500;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  max-width: 90%;
+}
+
+.card-divider {
+  font-size: 0.72rem;
+  color: #b8860b;
+  letter-spacing: 4px;
+}
+
+/* Envelope Pocket (Front Face with V-cut collar) */
 .envelope-pocket {
   position: absolute;
-  inset: 0;
-  border-radius: 16px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 145px;
+  border-radius: 0 0 16px 16px;
   overflow: hidden;
   z-index: 6;
   pointer-events: none;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 16px;
-  background: linear-gradient(to top, rgba(33, 21, 17, 0.95) 0%, rgba(45, 28, 22, 0.5) 50%, transparent 100%);
-  border: 2px solid rgba(212, 175, 55, 0.45);
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #2e180f 0%, #190c07 100%);
+  border-left: 2px solid rgba(212, 175, 55, 0.45);
+  border-right: 2px solid rgba(212, 175, 55, 0.45);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+  clip-path: polygon(0 32px, 50% 72px, 100% 32px, 100% 100%, 0 100%);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .envelope-songket-border {
@@ -622,67 +631,84 @@ body {
   letter-spacing: 1px;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  margin-bottom: 2px;
 }
 
-/* Revealed Royal Letter Card Inside Envelope */
-.invitation-card {
+/* Envelope Flap (Top Fold with GPU clip-path, anti-aliased) */
+.envelope-flap {
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 12px;
-  height: 180px;
-  background: linear-gradient(145deg, #fefbf5 0%, #f7edd8 100%);
-  border: 1.5px solid #d4af37;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(180deg, #42261b 0%, #28140c 100%);
+  border-top: 1.5px solid rgba(212, 175, 55, 0.5);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.3, 1, 0.4, 1) 0.08s, z-index 0s 0.28s;
+  z-index: 10;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.65));
+}
+
+.royal-envelope.unsealed .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 2;
+  filter: drop-shadow(0 -4px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Golden Royal Wax Seal */
+.envelope-wax-seal {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 58px;
+  height: 58px;
+  background: radial-gradient(circle at 35% 35%, #fff2db 0%, #e5c158 35%, #aa8012 75%, #593922 100%);
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px 14px;
-  box-sizing: border-box;
-  text-align: center;
-  z-index: 3;
-  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.65s, box-shadow 0.95s ease 0.65s;
-  pointer-events: none;
-}
-
-/* Card emerges cleanly and rises well above the pocket without being covered */
-.royal-envelope.unsealed .invitation-card {
-  transform: translateY(-135px);
-  pointer-events: auto;
-  cursor: pointer;
   box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.7),
-    0 0 35px rgba(212, 175, 55, 0.45);
+    0 8px 20px rgba(0, 0, 0, 0.6),
+    0 0 16px rgba(212, 175, 55, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.7);
+  z-index: 20;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
+  border: 1.5px solid #fff6d6;
 }
 
-.card-crest {
-  font-size: 1.8rem;
+.wax-seal-emblem {
+  font-size: 1.2rem;
   line-height: 1;
-  margin-bottom: 6px;
+  color: #211511;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
 }
 
-.card-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  color: #3b220c;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
+.wax-seal-text {
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #211511;
+  text-transform: uppercase;
+  margin-top: 2px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-.card-subtitle {
-  font-size: 0.85rem;
-  color: #634328;
-  font-weight: 600;
+.royal-envelope:hover .envelope-wax-seal {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 24px rgba(212, 175, 55, 0.8);
 }
 
-.card-sparkle {
-  font-size: 0.65rem;
-  color: #b8860b;
-  margin-top: 6px;
-  letter-spacing: 4px;
+/* Wax seal unsealing: scales up, dissolves smoothly, and disappears cleanly */
+.royal-envelope.unsealed .envelope-wax-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.25) rotate(15deg);
+  pointer-events: none;
+  visibility: hidden;
+  transition: transform 0.25s ease-out, opacity 0.2s ease-out, visibility 0s 0.25s;
 }
 
 #btn-to-stage-2.pulse-ready {
@@ -2771,7 +2797,7 @@ body {
   .envelope-scene {
     width: 100%;
     max-width: 320px;
-    min-height: 295px;
+    min-height: 350px;
     height: auto;
     margin: 10px auto 14px;
     display: flex;
@@ -2782,19 +2808,28 @@ body {
   }
 
   .royal-envelope {
-    width: min(280px, 88vw);
-    height: 180px;
+    width: min(290px, 90vw);
+    height: 170px;
+  }
+
+  .envelope-interior {
+    border-radius: 14px;
+  }
+
+  .envelope-pocket {
+    height: 130px;
+    clip-path: polygon(0 26px, 50% 62px, 100% 26px, 100% 100%, 0 100%);
+    padding: 10px 12px;
   }
 
   .envelope-flap {
-    border-left: 140px solid transparent;
-    border-right: 140px solid transparent;
-    border-top: 96px solid #3d261e;
+    height: 90px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
   }
 
   .envelope-wax-seal {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     top: 72px;
   }
 
@@ -2803,25 +2838,25 @@ body {
   }
 
   .wax-seal-text {
-    font-size: 0.52rem;
+    font-size: 0.5rem;
   }
 
   .invitation-card {
     left: 10px;
     right: 10px;
-    bottom: 10px;
+    bottom: 8px;
     width: auto;
-    height: 160px;
-    padding: 12px 10px;
+    height: 190px;
+    padding: 14px 12px;
   }
 
   .royal-envelope.unsealed .invitation-card {
-    transform: translateY(-120px);
+    transform: translateY(-145px) scale(1.02);
   }
 
   .card-crest {
     font-size: 1.45rem;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   .card-title {
@@ -2831,6 +2866,17 @@ body {
 
   .card-subtitle {
     font-size: 0.78rem;
+  }
+
+  .card-body-text {
+    font-size: 0.72rem;
+    line-height: 1.35;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .card-divider {
+    font-size: 0.65rem;
   }
 
   /* Stage 2: Gong on Small Mobile */
