@@ -474,19 +474,229 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnToStage5) btnToStage5.addEventListener('click', () => goToStage(5));
 
-  // ================= STAGE 5: GIFT & LETTER =================
+  // ================= STAGE 5: GIFT VAULT & MEMORY GAME =================
   const giftBox = document.getElementById('gift-box');
+  const giftPadlockWrap = document.getElementById('gift-padlock-wrap');
+  const padlockIcon = document.getElementById('padlock-icon');
+  const padlockLabel = document.getElementById('padlock-label');
+  const badgeLockIcon = document.getElementById('badge-lock-icon');
   const birthdayLetter = document.getElementById('birthday-letter');
   const partyToolbar = document.getElementById('party-toolbar');
   const guideStage5 = document.getElementById('guide-stage-5');
+  const memoryGrid = document.getElementById('memory-grid');
+  const trackerCount = document.getElementById('tracker-count');
+  const memoryStatusText = document.getElementById('memory-status-text');
+  const memoryStatusBox = document.getElementById('memory-status');
+  const statusIcon = document.getElementById('status-icon');
+  const btnReplayGame = document.getElementById('btn-replay-game');
+  const memoryGameSection = document.getElementById('memory-game-section');
+
   let giftOpened = false;
+  let isVaultUnlocked = false;
+  let flippedCards = [];
+  let isCheckingCards = false;
+  let matchedPairsCount = 0;
+  const TOTAL_PAIRS = 3;
+
+  // Uncle Makjon's signature pairs
+  const cardData = [
+    { id: 'legend', icon: '👑', title: 'The Legend', subtitle: "World's Best Uncle" },
+    { id: 'cool',   icon: '🕶️', title: 'Cool Uncle', subtitle: "Sempoi & Stylish" },
+    { id: 'kopi',   icon: '☕', title: 'Kopi King',  subtitle: "Santai & Chill" }
+  ];
+
+  function createMemoryDeck() {
+    const deck = [...cardData, ...cardData];
+    // Fisher-Yates shuffle
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+  }
+
+  function renderMemoryGame() {
+    if (!memoryGrid) return;
+    memoryGrid.innerHTML = '';
+    flippedCards = [];
+    isCheckingCards = false;
+    matchedPairsCount = 0;
+    
+    // Reset tracker UI
+    if (trackerCount) trackerCount.textContent = `0 / ${TOTAL_PAIRS}`;
+    for (let i = 0; i < TOTAL_PAIRS; i++) {
+      const slot = document.getElementById(`key-slot-${i}`);
+      if (slot) slot.classList.remove('collected');
+    }
+
+    if (memoryStatusText) {
+      memoryStatusText.textContent = 'Tap any card to begin matching!';
+    }
+    if (memoryStatusBox) {
+      memoryStatusBox.classList.remove('success');
+    }
+    if (statusIcon) statusIcon.textContent = '💡';
+
+    const deck = createMemoryDeck();
+    deck.forEach((card, index) => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'memory-card';
+      cardEl.dataset.id = card.id;
+      cardEl.dataset.index = index;
+      cardEl.setAttribute('role', 'button');
+      cardEl.setAttribute('tabindex', '0');
+      cardEl.setAttribute('aria-label', `Card ${index + 1}`);
+
+      cardEl.innerHTML = `
+        <div class="memory-card-inner">
+          <div class="memory-card-back">
+            <span class="card-back-icon">🎁</span>
+            <span class="card-back-pattern">✦ ✦ ✦</span>
+          </div>
+          <div class="memory-card-front">
+            <span class="card-front-icon">${card.icon}</span>
+            <span class="card-front-title">${card.title}</span>
+          </div>
+        </div>
+      `;
+
+      cardEl.addEventListener('click', () => handleCardClick(cardEl));
+      cardEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleCardClick(cardEl);
+        }
+      });
+
+      memoryGrid.appendChild(cardEl);
+    });
+  }
+
+  function handleCardClick(cardEl) {
+    if (isVaultUnlocked) return;
+    if (isCheckingCards) return;
+    if (cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) return;
+
+    // Flip this card
+    cardEl.classList.add('flipped');
+    if (window.birthdayAudio) window.birthdayAudio.playCardFlip();
+    flippedCards.push(cardEl);
+
+    if (flippedCards.length === 1) {
+      if (memoryStatusText) memoryStatusText.textContent = 'Find its matching pair!';
+      if (statusIcon) statusIcon.textContent = '👀';
+    } else if (flippedCards.length === 2) {
+      isCheckingCards = true;
+      const [cardA, cardB] = flippedCards;
+
+      if (cardA.dataset.id === cardB.dataset.id) {
+        // MATCH FOUND!
+        matchedPairsCount++;
+        cardA.classList.add('matched');
+        cardB.classList.add('matched');
+
+        if (window.birthdayAudio) window.birthdayAudio.playCardMatch();
+
+        // Update key slot
+        const slotIndex = matchedPairsCount - 1;
+        const keySlot = document.getElementById(`key-slot-${slotIndex}`);
+        if (keySlot) keySlot.classList.add('collected');
+        if (trackerCount) trackerCount.textContent = `${matchedPairsCount} / ${TOTAL_PAIRS}`;
+
+        // Micro-burst of confetti at cards
+        const rectA = cardA.getBoundingClientRect();
+        if (window.birthdayConfetti) {
+          window.birthdayConfetti.burst(rectA.left + rectA.width / 2, rectA.top + rectA.height / 2, 18);
+        }
+
+        if (matchedPairsCount === TOTAL_PAIRS) {
+          // ALL MATCHED -> UNLOCK VAULT!
+          triggerVaultUnlock();
+        } else {
+          if (memoryStatusText) {
+            memoryStatusText.textContent = `🎉 Match found! ${matchedPairsCount} of ${TOTAL_PAIRS} keys collected!`;
+          }
+          if (statusIcon) statusIcon.textContent = '🗝️';
+          flippedCards = [];
+          isCheckingCards = false;
+        }
+      } else {
+        // MISMATCH
+        if (window.birthdayAudio) window.birthdayAudio.playCardMismatch();
+        cardA.classList.add('mismatch');
+        cardB.classList.add('mismatch');
+        if (memoryStatusText) memoryStatusText.textContent = 'Not a match! Try again...';
+        if (statusIcon) statusIcon.textContent = '🤔';
+
+        setTimeout(() => {
+          cardA.classList.remove('flipped', 'mismatch');
+          cardB.classList.remove('flipped', 'mismatch');
+          flippedCards = [];
+          isCheckingCards = false;
+          if (memoryStatusText) memoryStatusText.textContent = 'Tap a card to continue!';
+          if (statusIcon) statusIcon.textContent = '💡';
+        }, 800);
+      }
+    }
+  }
+
+  function triggerVaultUnlock() {
+    isVaultUnlocked = true;
+    if (window.birthdayAudio) window.birthdayAudio.playUnlock();
+    if (window.birthdayConfetti) window.birthdayConfetti.cannon();
+
+    if (memoryStatusText) {
+      memoryStatusText.textContent = "✨ ALL KEYS COLLECTED! Unlocking Makjon's Vault! ✨";
+    }
+    if (memoryStatusBox) memoryStatusBox.classList.add('success');
+    if (statusIcon) statusIcon.textContent = '🔓';
+    if (badgeLockIcon) badgeLockIcon.textContent = '🔓';
+
+    // Animate padlock opening
+    if (giftPadlockWrap) {
+      giftPadlockWrap.classList.add('unlocked');
+    }
+    if (padlockIcon) padlockIcon.textContent = '🔓';
+    if (padlockLabel) padlockLabel.textContent = 'OPEN';
+
+    if (guideStage5) {
+      guideStage5.innerHTML = '<span class="guide-arrow">🎁</span> Vault Unlocked! Opening gift box...';
+    }
+
+    // Automatically open the gift box smoothly after celebration
+    setTimeout(() => {
+      openGift();
+    }, 1300);
+  }
+
+  function handleLockedGiftClick() {
+    if (giftOpened) return;
+    if (!isVaultUnlocked) {
+      // Padlock shake & feedback
+      if (giftPadlockWrap) {
+        giftPadlockWrap.classList.remove('rattle');
+        void giftPadlockWrap.offsetWidth; // Force reflow
+        giftPadlockWrap.classList.add('rattle');
+      }
+      if (window.birthdayAudio) window.birthdayAudio.playCardMismatch();
+      showToast("🔒 Vault is locked! Match all 3 pairs below to open Uncle Makjon's gift!");
+
+      // Scroll smoothly to memory game
+      if (memoryGameSection) {
+        memoryGameSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      return;
+    }
+
+    openGift();
+  }
 
   function openGift() {
     if (giftOpened) return;
     giftOpened = true;
 
     if (navigator.vibrate) {
-      try { navigator.vibrate(40); } catch (e) {}
+      try { navigator.vibrate(50); } catch (e) {}
     }
 
     if (guideStage5) {
@@ -500,12 +710,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       giftBox.style.display = 'none';
+      if (memoryGameSection) memoryGameSection.style.display = 'none';
       birthdayLetter.style.display = 'block';
       partyToolbar.style.display = 'flex';
+
+      // Smooth scroll to letter
+      birthdayLetter.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 600);
   }
 
-  if (giftBox) giftBox.addEventListener('click', openGift);
+  if (giftBox) giftBox.addEventListener('click', handleLockedGiftClick);
+
+  // Replay Memory Game button handler
+  if (btnReplayGame) {
+    btnReplayGame.addEventListener('click', () => {
+      giftOpened = false;
+      isVaultUnlocked = false;
+
+      giftBox.classList.remove('opened');
+      giftBox.style.display = 'block';
+
+      if (giftPadlockWrap) {
+        giftPadlockWrap.classList.remove('unlocked', 'rattle');
+      }
+      if (padlockIcon) padlockIcon.textContent = '🔒';
+      if (padlockLabel) padlockLabel.textContent = 'LOCKED';
+      if (badgeLockIcon) badgeLockIcon.textContent = '🔐';
+
+      if (memoryGameSection) memoryGameSection.style.display = 'flex';
+      birthdayLetter.style.display = 'none';
+      partyToolbar.style.display = 'none';
+
+      if (guideStage5) {
+        guideStage5.classList.remove('fade-out');
+        guideStage5.style.display = 'inline-flex';
+        guideStage5.innerHTML = '<span class="guide-arrow">👇</span> Match the 3 pairs below to unlock the gift!';
+      }
+
+      renderMemoryGame();
+      giftBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast('Memory challenge reshuffled! Have fun matching!');
+    });
+  }
 
   // Party Action Toolbar buttons
   const btnBlastConfetti = document.getElementById('btn-blast-confetti');
@@ -562,15 +808,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       giftOpened = false;
+      isVaultUnlocked = false;
       giftBox.classList.remove('opened');
       giftBox.style.display = 'block';
+
+      if (giftPadlockWrap) {
+        giftPadlockWrap.classList.remove('unlocked', 'rattle');
+      }
+      if (padlockIcon) padlockIcon.textContent = '🔒';
+      if (padlockLabel) padlockLabel.textContent = 'LOCKED';
+      if (badgeLockIcon) badgeLockIcon.textContent = '🔐';
+
+      if (memoryGameSection) memoryGameSection.style.display = 'flex';
       birthdayLetter.style.display = 'none';
       partyToolbar.style.display = 'none';
       if (guideStage5) {
         guideStage5.classList.remove('fade-out');
         guideStage5.style.display = 'inline-flex';
+        guideStage5.innerHTML = '<span class="guide-arrow">👇</span> Match the 3 pairs below to unlock the gift!';
       }
 
+      renderMemoryGame();
       goToStage(1);
     });
   }
@@ -656,4 +914,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Run initialization
   applyConfig();
   createAmbientParticles();
+  renderMemoryGame();
 });

@@ -1,55 +1,55 @@
 // ==========================================
 // 🎂 BIRTHDAY CONFIGURATION
-// Personalized for Eira Nadhirah & Mamipah ✨
+// Personalized for Uncle Makjon ✨
 // ==========================================
 
 const BIRTHDAY_CONFIG = {
-  // Birthday Celebrants' Details
-  name: "Eira Nadhirah & Mamipah", // Main names displayed across all stages
-  shortName: "Eira & Mamipah",     // Shorter version for compact navigation
-  nickname: "Our Beloved Celebrants", // Title or sweet descriptor
-  age: "",                         // Leave empty for joint celebration
-  date: "Today",                   // Display date
+  // Birthday Celebrant's Details
+  name: "Uncle Makjon",             // Main name displayed across all stages
+  shortName: "Makjon",              // Shorter version for compact navigation
+  nickname: "The Legend & Coolest Uncle", // Title or sweet descriptor
+  age: "",                          // Age (can be set or left empty)
+  date: "Today",                    // Display date
 
   // Quick greetings displayed during stages
-  doorSubtitle: "A double celebration of love, gratitude & happiness crafted just for you both ✨",
-  lightsBanner: "HAPPY BIRTHDAY",
-  cakeTitle: "Close your eyes, make your wishes together, and blow out the candles! 🎂",
+  doorSubtitle: "A special VIP celebration crafted with love and respect for our beloved Uncle Makjon! ✨",
+  lightsBanner: "HAPPY BIRTHDAY UNCLE MAKJON",
+  cakeTitle: "Close your eyes, make a wish in your heart, and blow out the candles, Uncle Makjon! 🎂",
 
   // Pop-up wishes revealed when balloons are popped (5 balloons)
   balloonWishes: [
     { 
-      title: "Endless Joy", 
-      text: "May both of your lives be blessed with abundant smiles, peaceful days, and hearty laughter! ✨" 
+      title: "Kesihatan & Awet Muda 🌿", 
+      text: "Semoga Uncle Makjon sentiasa dikurniakan tubuh badan yang cergas sihat, panjang umur, dan kekal awet muda bergaya selalu!" 
     },
     { 
-      title: "Good Health & Vitality", 
-      text: "Wishing Eira Nadhirah & Mamipah lifelong wellness, strength, and serenity in everything you do! 🌿" 
+      title: "Rezeki Melimpah Ruah 💰", 
+      text: "Moga dilapangkan rezeki seluas lautan, dipermudahkan segala urusan pekerjaan, dan sentiasa dalam keberkatan Ilahi." 
     },
     { 
-      title: "Dreams Fulfilled", 
-      text: "May every quiet hope, heartfelt prayer, and wonderful ambition turn into reality! 🌟" 
+      title: "Ketenangan & Kebahagiaan 🕊️", 
+      text: "Semoga setiap hari dilalui dengan ketenangan jiwa, senyuman bahagia, dan dipenuhi kasih sayang bersama keluarga tercinta." 
     },
     { 
-      title: "Boundless Love", 
-      text: "Always surrounded by the warmest love, respect, and gratitude from family and friends! 💖" 
+      title: "The Coolest Uncle Trophy 🏆", 
+      text: "Uncle yang paling sempoi, ceria, dan sporting! Terima kasih kerana sentiasa menjadi inspirasi dan menceriakan suasana keluarga." 
     },
     { 
-      title: "Pure Grace", 
-      text: "Celebrating the two incredible, inspiring souls that light up our family and world every day! 🥂" 
+      title: "Rahmat & Perlindungan 🤲", 
+      text: "Moga setiap langkah Uncle Makjon sentiasa dilindungi, dirahmati, dan diberkati Allah SWT di dunia dan akhirat. Amin!" 
     }
   ],
 
   // Grand Letter content revealed inside the Gift Box
   letter: {
-    salutation: "Dearest Eira Nadhirah & Mamipah,",
+    salutation: "Dearest Uncle Makjon,",
     paragraphs: [
-      "Happy Birthday to two of the most wonderful, loving, and radiant souls! Today is an extraordinary day because we get to celebrate both of you together.",
-      "Thank you for the endless warmth, selfless love, guidance, and laughter that you bring into our lives. You both hold an irreplaceable place in our hearts, and each day is so much brighter with you in it.",
-      "Semoga dipanjangkan usia, dipelihara kesihatan, dipermurahkan rezeki dan sentiasa dirahmati Allah dalam segala urusan. As you step into another blessed milestone year, I pray that the journey ahead brings boundless peace of mind, sound health, joyous moments, and countless blessings.",
-      "May all your prayers be answered, your smiles never fade, and your days be filled with happiness and harmony. Always remember how deeply loved, appreciated, and cherished you both are!"
+      "Selamat Hari Lahir buat Uncle Makjon yang paling sempoi, berjiwa muda, dan kami sayangi! Hari ini adalah hari yang istimewa untuk meraikan seorang uncle yang hebat, penuh teladan, dan sentiasa menceriakan kami sekeluarga.",
+      "Terima kasih atas segala kenangan indah, nasihat yang membina, gelak tawa santai, dan kasih sayang ikhlas yang Uncle kongsikan bersama kami selama ini. Kehadiran Uncle sentiasa menghidupkan suasana dan memberi aura positif kepada semua orang di sekeliling.",
+      "Semoga dipanjangkan usia dalam keberkatan, dikurniakan kesihatan yang berpanjangan, dilapangkan pintu rezeki yang melimpah ruah, dan dipermudahkan segala urusan dunia serta akhirat. Saya sentiasa mendoakan agar Uncle sekeluarga sentiasa berada dalam lindungan dan rahmat Allah SWT.",
+      "Semoga tahun ini membawa seribu satu kegembiraan baru, kejayaan yang membanggakan, serta kedamaian yang berpanjangan. Always remember how much you are loved and appreciated by our family!"
     ],
-    closing: "With all our love, gratitude & warmest prayers,",
+    closing: "With highest respect, love & warmest prayers,",
     author: "Izzat Nadzmi Bin Yahaya ❤️"
   },
 
@@ -59,7 +59,7 @@ const BIRTHDAY_CONFIG = {
   // Background Music Settings
   audio: {
     defaultVolume: 0.4,
-    autoPlayMelody: true       // Melodic synthesized music starts after door opens
+    autoPlayMelody: true
   }
 };
 

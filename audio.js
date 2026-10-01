@@ -213,6 +213,79 @@ class BirthdayAudioEngine {
     });
   }
 
+  // Snappy card flip sound
+  playCardFlip() {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, t);
+    osc.frequency.exponentialRampToValueAtTime(280, t + 0.06);
+    gain.gain.setValueAtTime(0.3, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+    osc.start(t);
+    osc.stop(t + 0.08);
+  }
+
+  // Harmonious celebratory pair match chime
+  playCardMatch() {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+    this.playBell(t, 659.25, 0.35, 0.35); // E5
+    this.playBell(t + 0.09, 987.77, 0.45, 0.35); // B5
+    this.playBell(t + 0.18, 1318.51, 0.6, 0.4); // E6
+  }
+
+  // Gentle subtle mismatch wobble tone
+  playCardMismatch() {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(260, t);
+    osc.frequency.exponentialRampToValueAtTime(180, t + 0.14);
+    gain.gain.setValueAtTime(0.22, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+    osc.start(t);
+    osc.stop(t + 0.16);
+  }
+
+  // Metallic padlock pop + unlocking glissando
+  playUnlock() {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+
+    // Metallic latch click
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(1200, t);
+    osc.frequency.exponentialRampToValueAtTime(220, t + 0.08);
+    gain.gain.setValueAtTime(0.6, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+    osc.start(t);
+    osc.stop(t + 0.1);
+
+    // Grand unlocking glissando
+    const unlockNotes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+    unlockNotes.forEach((freq, idx) => {
+      this.playBell(t + 0.08 + idx * 0.07, freq, 0.55, 0.35);
+    });
+  }
+
+
   // Background Music: Warm Music Box "Happy Birthday to You"
   startBackgroundMusic() {
     this.init();

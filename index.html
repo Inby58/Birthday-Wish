@@ -44,7 +44,7 @@
     <div class="logo-container">
       <span class="logo-icon">🎂</span>
       <div class="logo-text-group">
-        <span class="logo-text" id="header-logo-text">Eira & Mamipah</span>
+        <span class="logo-text" id="header-logo-text">Uncle Makjon</span>
         <span class="logo-author">by Izzat Nadzmi</span>
       </div>
     </div>
@@ -290,21 +290,74 @@
     <!-- ================= STAGE 5: GIFT & LETTER ================= -->
     <section class="stage-section" id="stage-5">
       <span class="title-script">A Special Surprise</span>
-      <h2 class="stage-heading" id="gift-heading">A Gift Wrapped With Love</h2>
-      <p class="stage-desc" id="gift-desc">Tap the luxury gift box to untie the ribbon and reveal your personalized birthday letter!</p>
+      <h2 class="stage-heading" id="gift-heading">Uncle Makjon's Mystery Gift Box</h2>
+      <p class="stage-desc" id="gift-desc">The gift box is locked with a golden padlock! Solve Uncle Makjon's memory card challenge below to unlock the vault & reveal his birthday letter!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-5">
-        <span class="guide-arrow">🎁</span> Tap the gift box to open!
+        <span class="guide-arrow">👇</span> Match the 3 pairs below to unlock the gift!
       </div>
 
-      <!-- 3D Gift Box -->
+      <!-- 3D Gift Box with Golden Padlock -->
       <div class="gift-scene">
-        <div class="gift-box" id="gift-box" title="Tap to open!">
+        <div class="gift-box" id="gift-box" title="Tap to test the lock!">
           <div class="gift-body">
             <div class="gift-ribbon-v"></div>
             <div class="gift-ribbon-h"></div>
             <div class="gift-bow">🎀</div>
+
+            <!-- Luxury Golden Padlock -->
+            <div class="gift-padlock-wrap" id="gift-padlock-wrap" title="Vault Locked! Match all pairs below to unlock.">
+              <div class="padlock-shackle" id="padlock-shackle"></div>
+              <div class="padlock-body">
+                <span class="padlock-icon" id="padlock-icon">🔒</span>
+                <span class="padlock-label" id="padlock-label">LOCKED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unlock Mini-Game: Uncle Makjon's Memory Challenge -->
+      <div class="memory-game-section" id="memory-game-section">
+        <div class="memory-game-card">
+          <div class="memory-header">
+            <div class="memory-badge">
+              <span class="badge-lock-icon" id="badge-lock-icon">🔐</span>
+              <span>Uncle Makjon's Vault Challenge</span>
+            </div>
+            <h3 class="memory-title">Match The Pairs to Unlock The Gift!</h3>
+            <p class="memory-subtitle">Flip and find all 3 matching pairs of Uncle Makjon's signature icons to crack the lock!</p>
+          </div>
+
+          <!-- Progress / Key Counter -->
+          <div class="memory-tracker">
+            <div class="tracker-info">
+              <span class="tracker-label">Keys Collected:</span>
+              <span class="tracker-count" id="tracker-count">0 / 3</span>
+            </div>
+            <div class="key-slots" id="key-slots">
+              <div class="key-slot" id="key-slot-0" title="Key 1">
+                <span class="key-icon">🗝️</span>
+              </div>
+              <div class="key-slot" id="key-slot-1" title="Key 2">
+                <span class="key-icon">🗝️</span>
+              </div>
+              <div class="key-slot" id="key-slot-2" title="Key 3">
+                <span class="key-icon">🗝️</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Memory Cards Grid (6 cards, 3 pairs) -->
+          <div class="memory-grid" id="memory-grid" role="region" aria-label="Memory Card Matching Game">
+            <!-- Dynamically populated and shuffled via app.js -->
+          </div>
+
+          <!-- Unlock Status Message -->
+          <div class="memory-status" id="memory-status">
+            <span class="status-icon" id="status-icon">💡</span>
+            <span id="memory-status-text">Tap any card to begin matching!</span>
           </div>
         </div>
       </div>
@@ -312,18 +365,18 @@
       <!-- Unfolded Letter -->
       <div class="letter-container" id="birthday-letter">
         <div class="letter-wax-seal">★</div>
-        <div class="letter-salutation" id="letter-salutation">Dearest Eira Nadhirah & Mamipah,</div>
+        <div class="letter-salutation" id="letter-salutation">Dearest Uncle Makjon,</div>
 
         <!-- Featured Photo Inside Letter -->
         <div class="letter-photo-wrap" id="letter-photo-wrap">
-          <img class="letter-photo" id="letter-photo-img" src="photo.jpg" alt="Izzat Nadzmi Bin Yahaya">
-          <div class="letter-photo-caption">Wishing you both endless joy, blessings & love ✨</div>
+          <img class="letter-photo" id="letter-photo-img" src="photo.jpg" alt="Uncle Makjon Celebration">
+          <div class="letter-photo-caption">Wishing you endless joy, health & blessings always ✨</div>
         </div>
 
         <div class="letter-body" id="letter-body">
           <!-- Dynamically populated from config.js -->
         </div>
-        <div class="letter-closing" id="letter-closing">With all my love & warmest wishes,</div>
+        <div class="letter-closing" id="letter-closing">With highest respect & warmest prayers,</div>
         <div class="letter-author" id="letter-author">Izzat Nadzmi Bin Yahaya ❤️</div>
       </div>
 
@@ -332,8 +385,11 @@
         <button class="btn-primary" id="btn-blast-confetti">
           🎉 Blast Confetti!
         </button>
+        <button class="btn-secondary" id="btn-replay-game">
+          🃏 Replay Memory Game
+        </button>
         <button class="btn-secondary" id="btn-replay">
-          🔄 Replay Party Journey
+          🔄 Replay Full Journey
         </button>
         <button class="btn-secondary" id="btn-share">
           🔗 Copy Link to Share

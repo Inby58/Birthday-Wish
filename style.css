@@ -1333,6 +1333,423 @@ body {
   100% { transform: scale(0.6) translateY(50px); opacity: 0; display: none; }
 }
 
+/* ==========================================
+   GOLDEN VAULT PADLOCK ON GIFT BOX
+   ========================================== */
+.gift-padlock-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.5s ease;
+}
+
+.padlock-shackle {
+  width: 28px;
+  height: 22px;
+  border: 4.5px solid #ffeaa7;
+  border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  margin-bottom: -3px;
+  background: transparent;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 0 8px rgba(255, 211, 105, 0.6);
+  transform-origin: left bottom;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.padlock-body {
+  background: linear-gradient(135deg, #ffd369 0%, #e5a93b 50%, #b8860b 100%);
+  border: 2px solid #fff6d6;
+  border-radius: 10px;
+  padding: 5px 10px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.8);
+  animation: padlockPulse 2.4s infinite ease-in-out;
+}
+
+.padlock-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.padlock-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #3b220c;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Padlock Shake on Locked Click */
+.gift-padlock-wrap.rattle {
+  animation: padlockRattle 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes padlockRattle {
+  0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+  20% { transform: translate(-54%, -50%) rotate(-10deg); }
+  40% { transform: translate(-46%, -50%) rotate(10deg); }
+  60% { transform: translate(-53%, -50%) rotate(-6deg); }
+  80% { transform: translate(-48%, -50%) rotate(6deg); }
+}
+
+/* Padlock Unlocked State */
+.gift-padlock-wrap.unlocked .padlock-shackle {
+  transform: translateY(-9px) rotate(-35deg);
+  border-color: #78ffd6;
+}
+
+.gift-padlock-wrap.unlocked .padlock-body {
+  background: linear-gradient(135deg, #78ffd6 0%, #2ed573 100%);
+  border-color: #ffffff;
+  box-shadow: 0 0 25px rgba(120, 255, 214, 0.8), inset 0 1px 4px rgba(255, 255, 255, 0.9);
+  animation: padlockUnlockedBurst 0.8s forwards ease-out;
+}
+
+.gift-padlock-wrap.unlocked .padlock-label {
+  color: #0d3b25;
+}
+
+@keyframes padlockUnlockedBurst {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); filter: drop-shadow(0 0 20px #78ffd6); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes padlockPulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 211, 105, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 22px rgba(255, 211, 105, 0.8), inset 0 1px 4px rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* ==========================================
+   MEMORY GAME SECTION & CARDS
+   ========================================== */
+.memory-game-section {
+  width: 100%;
+  max-width: 580px;
+  margin: 24px auto 16px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.memory-game-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 211, 105, 0.35);
+  border-radius: 24px;
+  padding: 24px 20px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.4), 0 0 30px rgba(246, 211, 101, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-game-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255, 211, 105, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.memory-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.memory-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, rgba(255, 211, 105, 0.25), rgba(255, 117, 140, 0.25));
+  border: 1px solid rgba(255, 211, 105, 0.5);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--champagne);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.memory-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+
+.memory-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 440px;
+  line-height: 1.45;
+  margin: 0 auto;
+}
+
+/* Key Tracker */
+.memory-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 10px 18px;
+  margin-bottom: 20px;
+}
+
+.tracker-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tracker-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.tracker-count {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--warm-gold);
+  text-shadow: 0 0 10px rgba(246, 211, 101, 0.6);
+}
+
+.key-slots {
+  display: flex;
+  gap: 10px;
+}
+
+.key-slot {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px dashed rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  opacity: 0.35;
+  filter: grayscale(1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.key-slot.collected {
+  opacity: 1;
+  filter: grayscale(0);
+  background: linear-gradient(135deg, rgba(255, 211, 105, 0.3), rgba(255, 117, 140, 0.3));
+  border: 1.5px solid var(--warm-gold);
+  box-shadow: 0 0 16px rgba(255, 211, 105, 0.6);
+  transform: scale(1.15) rotate(5deg);
+  animation: keyPop 0.5s ease-out;
+}
+
+@keyframes keyPop {
+  0% { transform: scale(0.6) rotate(-20deg); }
+  60% { transform: scale(1.25) rotate(10deg); }
+  100% { transform: scale(1.15) rotate(5deg); }
+}
+
+/* 6-Card Grid (3 columns x 2 rows) */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 440px;
+  margin-bottom: 18px;
+  perspective: 1000px;
+}
+
+.memory-card {
+  aspect-ratio: 3 / 3.8;
+  width: 100%;
+  min-height: 110px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.memory-card-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 16px;
+}
+
+.memory-card.flipped .memory-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Card Faces */
+.memory-card-back,
+.memory-card-front {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+/* Card Back (Hidden state) */
+.memory-card-back {
+  background: linear-gradient(135deg, #1b0e2b 0%, #2e133e 50%, #170b24 100%);
+  border: 1.5px solid rgba(255, 211, 105, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.2);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.memory-card:hover .memory-card-back {
+  border-color: rgba(255, 211, 105, 0.85);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5), 0 0 18px rgba(255, 211, 105, 0.4);
+  transform: translateY(-3px);
+}
+
+.card-back-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.memory-card:hover .card-back-icon {
+  transform: scale(1.12);
+}
+
+.card-back-pattern {
+  font-size: 0.7rem;
+  color: var(--warm-gold);
+  opacity: 0.65;
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+/* Card Front (Revealed state) */
+.memory-card-front {
+  background: linear-gradient(145deg, #2b1236 0%, #3d1b4b 60%, #1e0d29 100%);
+  border: 2px solid #ffd369;
+  transform: rotateY(180deg);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 2px 8px rgba(255, 211, 105, 0.3);
+}
+
+.card-front-icon {
+  font-size: 2.3rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  margin-bottom: 6px;
+  transition: transform 0.3s ease;
+}
+
+.card-front-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff6d6;
+  text-align: center;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.2px;
+}
+
+/* Matched Card State */
+.memory-card.matched .memory-card-inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched .memory-card-front {
+  background: linear-gradient(145deg, #1b3829 0%, #1f4f37 60%, #102d1e 100%);
+  border: 2px solid #78ffd6;
+  box-shadow: 0 0 22px rgba(120, 255, 214, 0.6), inset 0 2px 8px rgba(255, 255, 255, 0.4);
+  animation: matchedGlow 2s infinite alternate ease-in-out;
+}
+
+.memory-card.matched .card-front-title {
+  color: #b8ffea;
+}
+
+.memory-card.matched {
+  cursor: default;
+  pointer-events: none;
+}
+
+@keyframes matchedGlow {
+  0% { box-shadow: 0 0 16px rgba(120, 255, 214, 0.5), inset 0 2px 8px rgba(255, 255, 255, 0.3); }
+  100% { box-shadow: 0 0 26px rgba(120, 255, 214, 0.85), inset 0 2px 10px rgba(255, 255, 255, 0.5); }
+}
+
+/* Mismatch Shake */
+.memory-card.mismatch .memory-card-inner {
+  animation: cardMismatchShake 0.5s ease-in-out;
+}
+
+@keyframes cardMismatchShake {
+  0%, 100% { transform: rotateY(180deg) translateX(0); }
+  20% { transform: rotateY(180deg) translateX(-6px); }
+  40% { transform: rotateY(180deg) translateX(6px); }
+  60% { transform: rotateY(180deg) translateX(-4px); }
+  80% { transform: rotateY(180deg) translateX(4px); }
+}
+
+/* Status Pill */
+.memory-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  font-size: 0.88rem;
+  color: #ffeaa7;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.memory-status.success {
+  background: linear-gradient(135deg, rgba(46, 213, 115, 0.25), rgba(120, 255, 214, 0.25));
+  border-color: #78ffd6;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(120, 255, 214, 0.4);
+  font-weight: 700;
+}
+
 /* Parchment Birthday Letter */
 .letter-container {
   display: none;
@@ -2110,6 +2527,77 @@ body {
   .gift-bow {
     font-size: 2rem;
     top: -16px;
+  }
+
+  .gift-padlock-wrap .padlock-shackle {
+    width: 22px;
+    height: 18px;
+    border-width: 3.5px;
+  }
+
+  .gift-padlock-wrap .padlock-body {
+    padding: 3px 8px 3px;
+  }
+
+  .gift-padlock-wrap .padlock-icon {
+    font-size: 1.1rem;
+  }
+
+  .gift-padlock-wrap .padlock-label {
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+  }
+
+  .memory-game-card {
+    padding: 18px 12px;
+    border-radius: 20px;
+  }
+
+  .memory-title {
+    font-size: 1.25rem;
+  }
+
+  .memory-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .memory-tracker {
+    padding: 8px 12px;
+    margin-bottom: 15px;
+  }
+
+  .key-slot {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+
+  .memory-grid {
+    gap: 8px;
+    max-width: 330px;
+    margin-bottom: 14px;
+  }
+
+  .memory-card {
+    min-height: 98px;
+  }
+
+  .card-back-icon {
+    font-size: 1.6rem;
+  }
+
+  .card-front-icon {
+    font-size: 1.75rem;
+    margin-bottom: 3px;
+  }
+
+  .card-front-title {
+    font-size: 0.68rem;
+  }
+
+  .memory-status {
+    font-size: 0.8rem;
+    padding: 6px 12px;
   }
 
   .letter-container {
