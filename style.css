@@ -505,13 +505,13 @@ body {
   z-index: 1;
 }
 
-/* Revealed Royal Letter Card Inside Envelope */
+/* Revealed Royal Letter Card Inside Envelope - COMPLETELY HIDDEN WHILE CLOSED */
 .invitation-card {
   position: absolute;
   left: 14px;
   right: 14px;
   bottom: 10px;
-  height: 200px;
+  height: 205px;
   background: linear-gradient(150deg, #fffefc 0%, #fbf5e6 55%, #f4e3c3 100%);
   border: 1.5px solid #d4af37;
   border-radius: 14px;
@@ -524,21 +524,30 @@ body {
   box-sizing: border-box;
   text-align: center;
   z-index: 3;
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.22s, 
-              box-shadow 0.85s ease 0.22s,
-              z-index 0s 0.32s;
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
+  transform: translateY(20px) scale(0.92);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.45s ease,
+              visibility 0s 0.85s;
 }
 
-/* When unsealed: Card emerges cleanly, clears the pocket, and floats proudly in front */
+/* When unsealed: Card blooms into view, floats in front of envelope, 100% visible */
 .royal-envelope.unsealed .invitation-card {
-  transform: translateY(-165px) scale(1.02);
-  z-index: 25;
+  opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   cursor: pointer;
+  transform: translateY(-135px) scale(1.02);
+  z-index: 25;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, 
+              opacity 0.45s ease 0.18s,
+              box-shadow 0.85s ease 0.18s,
+              visibility 0s 0s;
   box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.8),
-    0 0 35px rgba(212, 175, 55, 0.45),
+    0 25px 60px rgba(0, 0, 0, 0.85),
+    0 0 40px rgba(212, 175, 55, 0.5),
     inset 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
@@ -580,14 +589,11 @@ body {
   letter-spacing: 4px;
 }
 
-/* Envelope Pocket (Front Face with V-cut collar) */
+/* Envelope Pocket (Solid Front Face covering whole envelope) */
 .envelope-pocket {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 145px;
-  border-radius: 0 0 16px 16px;
+  inset: 0;
+  border-radius: 16px;
   overflow: hidden;
   z-index: 6;
   pointer-events: none;
@@ -595,12 +601,9 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   padding: 14px 16px;
-  background: linear-gradient(180deg, #2e180f 0%, #190c07 100%);
-  border-left: 2px solid rgba(212, 175, 55, 0.45);
-  border-right: 2px solid rgba(212, 175, 55, 0.45);
-  border-bottom: 2px solid rgba(212, 175, 55, 0.45);
-  clip-path: polygon(0 32px, 50% 72px, 100% 32px, 100% 100%, 0 100%);
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(160deg, #2e180f 0%, #190c07 100%);
+  border: 2px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.2);
 }
 
 .envelope-songket-border {
@@ -2817,20 +2820,21 @@ body {
   }
 
   .envelope-pocket {
-    height: 130px;
-    clip-path: polygon(0 26px, 50% 62px, 100% 26px, 100% 100%, 0 100%);
+    inset: 0;
+    height: auto;
+    border-radius: 14px;
     padding: 10px 12px;
   }
 
   .envelope-flap {
-    height: 90px;
+    height: 95px;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
   }
 
   .envelope-wax-seal {
     width: 50px;
     height: 50px;
-    top: 72px;
+    top: 76px;
   }
 
   .wax-seal-emblem {
@@ -2846,12 +2850,17 @@ body {
     right: 10px;
     bottom: 8px;
     width: auto;
-    height: 190px;
+    height: 195px;
     padding: 14px 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.92);
   }
 
   .royal-envelope.unsealed .invitation-card {
-    transform: translateY(-145px) scale(1.02);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-120px) scale(1.02);
   }
 
   .card-crest {
