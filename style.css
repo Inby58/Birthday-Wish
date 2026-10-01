@@ -1029,131 +1029,293 @@ body {
 }
 
 /* ==========================================
-   STAGE 3: BALLOON POP WISH GAME
+   STAGE 3: PELITA EMAS DIRAJA (TRADITIONAL BRASS OIL LAMPS)
    ========================================== */
-.balloons-rack {
+.pelita-scene {
+  width: 100%;
+  max-width: 620px;
+  margin: 10px auto 25px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  position: relative;
+  perspective: 1000px;
+}
+
+/* Traditional Carved Timber Stand Shelf */
+.pelita-stand-shelf {
+  width: 100%;
+  background: linear-gradient(180deg, #382015 0%, #24130b 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-radius: 20px;
+  padding: 26px 14px 22px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(255, 235, 160, 0.3);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.pelita-shelf-trim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    #d4af37,
+    #d4af37 6px,
+    #aa8012 6px,
+    #aa8012 12px
+  );
+  border-radius: 20px 20px 0 0;
+}
+
+.pelita-shelf-base {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #d4af37,
+    #d4af37 6px,
+    #aa8012 6px,
+    #aa8012 12px
+  );
+  border-radius: 0 0 20px 20px;
+}
+
+/* Pelita Lamps Grid Rack */
+.pelita-rack {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
   gap: 16px;
   width: 100%;
-  max-width: 580px;
-  margin: 10px auto 25px;
-  padding: 10px;
   box-sizing: border-box;
-  overflow: visible;
 }
 
-.balloon-slot {
-  width: 84px;
-  min-height: 145px;
+/* Individual Pelita Lamp Component */
+.pelita-lamp {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   position: relative;
-  transition: all 0.3s ease;
-}
-
-.balloon-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 86px;
+  min-height: 168px;
   cursor: pointer;
-  position: relative;
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+  -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  padding-bottom: 4px;
 }
 
-.balloon-wrap:hover {
-  transform: scale(1.1) translateY(-6px);
+.pelita-lamp:hover {
+  transform: translateY(-6px) scale(1.05);
 }
 
-.balloon {
-  width: 82px;
-  height: 102px;
-  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: inset -8px -8px 18px rgba(0, 0, 0, 0.25), inset 8px 8px 18px rgba(255, 255, 255, 0.4), 0 10px 25px rgba(0, 0, 0, 0.3);
-  animation: balloonFloat 3.5s ease-in-out infinite alternate;
+.pelita-lamp:active {
+  transform: scale(0.96);
 }
 
-@keyframes balloonFloat {
-  0% { transform: translateY(0px) rotate(-2deg); }
-  100% { transform: translateY(-14px) rotate(2deg); }
+/* Ambient Golden Aura (Glows when lit) */
+.pelita-aura {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 211, 105, 0.45) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 75%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 1;
 }
 
-.balloon-highlight {
+.pelita-lamp.lit .pelita-aura {
+  opacity: 1;
+  animation: auraGlow 2.8s infinite alternate ease-in-out;
+}
+
+@keyframes auraGlow {
+  0% { transform: translateX(-50%) scale(0.92); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+}
+
+/* Flame & Wick Section */
+.pelita-flame-wrap {
   position: absolute;
   top: 14px;
-  left: 14px;
-  width: 13px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.65);
-  transform: rotate(-35deg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 15;
 }
 
-.balloon-label {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+.pelita-wick {
+  width: 3.5px;
+  height: 10px;
+  background: #2a150c;
+  border-radius: 2px;
+  margin-top: -2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.pelita-flame {
+  width: 18px;
+  height: 28px;
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  background: radial-gradient(ellipse at bottom, #ffffff 0%, #fff2db 20%, #ffd369 55%, #e58e26 85%, transparent 100%);
+  box-shadow: 0 0 16px #ffd369, 0 0 32px #e5a93b, 0 0 45px rgba(212, 175, 55, 0.8);
+  opacity: 0;
+  transform: scale(0.1);
+  transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
 }
 
-.balloon-knot {
-  width: 10px;
-  height: 8px;
-  background: inherit;
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  margin-top: -1px;
+.pelita-lamp.lit .pelita-flame {
+  opacity: 1;
+  transform: scale(1);
+  animation: flameFlickerPelita 0.8s infinite alternate ease-in-out;
 }
 
-.balloon-string {
-  width: 2px;
-  height: 52px;
-  background: rgba(255, 255, 255, 0.4);
+@keyframes flameFlickerPelita {
+  0% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.1, 0.95) rotate(2deg); }
+  100% { transform: scale(0.95, 1.08) rotate(-1deg); }
 }
 
-/* Popped badge in slot - keeps slot geometry completely stable */
-.popped-badge {
+/* Traditional Brass Pelita Vessel Body */
+.pelita-vessel {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 42px;
+  z-index: 5;
+}
+
+.pelita-spout {
+  width: 14px;
+  height: 12px;
+  background: linear-gradient(to bottom, #d4af37, #8c680a);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+  margin-bottom: -1px;
+}
+
+.pelita-rim {
+  width: 32px;
+  height: 5px;
+  background: linear-gradient(to right, #aa8012, #f5d77f, #aa8012);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.pelita-belly {
+  width: 58px;
+  height: 44px;
+  border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
+  background: radial-gradient(circle at 35% 35%, #fff2db 0%, #e5c158 35%, #aa8012 75%, #4a2d1d 100%);
+  border: 1.5px solid #fff6d6;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.6),
+    inset 0 2px 5px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
+
+.pelita-lamp.lit .pelita-belly {
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(212, 175, 55, 0.6),
+    inset 0 2px 5px rgba(255, 255, 255, 0.8);
+}
+
+.pelita-songket-icon {
+  font-size: 0.95rem;
+  color: #3b220c;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.pelita-handle {
+  position: absolute;
+  right: -8px;
+  top: 8px;
+  width: 14px;
+  height: 24px;
+  border: 3px solid #aa8012;
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Brass Pedestal / Stand with Number Badge */
+.pelita-pedestal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 16px;
+  background: linear-gradient(to right, #6b4c10, #d4af37, #6b4c10);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 246, 214, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-top: 3px;
+  z-index: 5;
+}
+
+.pelita-number {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #211511;
+  letter-spacing: 0.5px;
+}
+
+/* Dynamic State Pill below lamp */
+.pelita-state-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--champagne);
   background: rgba(255, 255, 255, 0.08);
-  border: 2px dashed rgba(255, 211, 105, 0.6);
-  box-shadow: 0 0 16px rgba(255, 211, 105, 0.25);
-  animation: poppedBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-  margin-top: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-top: 10px;
+  letter-spacing: 0.4px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-@keyframes poppedBounce {
-  0% { transform: scale(0.2); opacity: 0; }
-  65% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+.pelita-lamp:hover .pelita-state-label {
+  border-color: var(--royal-gold);
+  background: rgba(212, 175, 55, 0.18);
+  color: #ffffff;
 }
 
-.popped-badge-icon {
-  font-size: 1.5rem;
-}
-
-.popped-badge-num {
-  font-size: 0.72rem;
-  color: var(--warm-gold);
+.pelita-lamp.lit .pelita-state-label {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.35), rgba(39, 85, 63, 0.4));
+  border-color: #ffd369;
+  color: #fff6d6;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
   font-weight: 700;
-  margin-top: 2px;
 }
 
-/* Revealed Wishes List below balloons */
+/* Revealed Wishes List below Pelita */
 .unlocked-wishes-section {
   width: 100%;
   max-width: 640px;
@@ -2579,45 +2741,80 @@ body {
     overflow-wrap: break-word;
   }
 
-  /* Balloons on Mobile */
-  .balloons-rack {
-    gap: 8px;
-    max-width: 100%;
+  /* Pelita on Mobile */
+  .pelita-scene {
     margin: 5px auto 16px;
-    padding: 4px;
-    overflow: visible;
+    max-width: 100%;
   }
 
-  .balloon-slot {
+  .pelita-stand-shelf {
+    padding: 16px 6px 14px;
+    border-radius: 16px;
+  }
+
+  .pelita-rack {
+    gap: 6px;
+  }
+
+  .pelita-lamp {
     width: 58px;
-    min-height: 112px;
+    min-height: 135px;
+    padding-bottom: 2px;
   }
 
-  .balloon {
-    width: 52px;
-    height: 66px;
+  .pelita-flame-wrap {
+    top: 10px;
   }
 
-  .balloon-string {
-    height: 28px;
+  .pelita-flame {
+    width: 13px;
+    height: 20px;
   }
 
-  .balloon-label {
-    font-size: 0.7rem;
+  .pelita-vessel {
+    margin-top: 32px;
   }
 
-  .popped-badge {
-    width: 52px;
-    height: 52px;
-    margin-top: 10px;
+  .pelita-spout {
+    width: 10px;
+    height: 8px;
   }
 
-  .popped-badge-icon {
-    font-size: 1.15rem;
+  .pelita-rim {
+    width: 24px;
+    height: 4px;
   }
 
-  .popped-badge-num {
-    font-size: 0.65rem;
+  .pelita-belly {
+    width: 44px;
+    height: 33px;
+  }
+
+  .pelita-songket-icon {
+    font-size: 0.75rem;
+  }
+
+  .pelita-handle {
+    right: -6px;
+    width: 10px;
+    height: 18px;
+    border-width: 2px;
+  }
+
+  .pelita-pedestal {
+    width: 36px;
+    height: 13px;
+    margin-top: 2px;
+  }
+
+  .pelita-number {
+    font-size: 0.55rem;
+  }
+
+  .pelita-state-label {
+    font-size: 0.58rem;
+    padding: 2px 5px;
+    margin-top: 6px;
   }
 
   .wishes-section-title {
@@ -2976,7 +3173,7 @@ body {
   .btn-icon:hover,
   .btn-primary:hover,
   .btn-gold:hover,
-  .balloon-wrap:hover,
+  .pelita-lamp:hover,
   .gift-box:hover,
   .polaroid-card:hover {
     transform: none;
@@ -2988,7 +3185,7 @@ body {
   .btn-icon:active,
   .btn-primary:active,
   .btn-gold:active,
-  .balloon-wrap:active,
+  .pelita-lamp:active,
   .gift-box:active {
     transform: scale(0.96);
     opacity: 0.9;

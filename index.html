@@ -59,9 +59,9 @@
         <span class="step-number">2</span>
         <span class="step-text">Gong</span>
       </button>
-      <button class="stage-step" data-stage="3" id="nav-step-3" aria-label="Stage 3: Balloons">
+      <button class="stage-step" data-stage="3" id="nav-step-3" aria-label="Stage 3: Pelita">
         <span class="step-number">3</span>
-        <span class="step-text">Balloons</span>
+        <span class="step-text">Pelita</span>
       </button>
       <button class="stage-step" data-stage="4" id="nav-step-4" aria-label="Stage 4: Cake">
         <span class="step-number">4</span>
@@ -215,41 +215,47 @@
         </button>
 
         <button class="btn-gold" id="btn-to-stage-3" style="display: none;">
-          Teruskan ke Belon Keraian 🎈
+          <span>🪔</span> Teruskan ke Pelita Emas
         </button>
       </div>
     </section>
 
-    <!-- ================= STAGE 3: BALLOON POP ================= -->
+    <!-- ================= STAGE 3: PELITA EMAS DIRAJA ================= -->
     <section class="stage-section" id="stage-3">
-      <span class="title-script">Hajat & Ucapan</span>
-      <h2 class="stage-heading">Pecahkan Belon Keraian!</h2>
-      <p class="stage-desc">Setiap belon menyimpan doa tulus dan ucapan penuh makna khas buat Makjon. Tekan setiap satu untuk mengumpulkannya!</p>
+      <span class="title-script">Cahaya Keberkatan</span>
+      <h2 class="stage-heading" id="pelita-main-heading">Nyalakan 5 Pelita Emas Diraja</h2>
+      <p class="stage-desc" id="pelita-desc">Setiap pelita melambangkan doa tulus dan keberkatan usia khas buat Makjon. Tekan setiap pelita untuk menyalakan cahaya doa!</p>
 
       <!-- Guidance Bubble -->
       <div class="guide-bubble guide-bubble-bounce" id="guide-stage-3">
-        <span class="guide-arrow">👇</span> Tekan setiap belon untuk membuka doa!
+        <span class="guide-arrow">👉</span> Tekan setiap pelita tembaga untuk menyalakan apinya!
       </div>
 
-      <div style="font-size: 0.95rem; color: var(--warm-gold); font-weight: 600; margin-bottom: 14px;" id="balloon-progress-text">
-        Doa Terkumpul: 0 / 5
+      <div style="font-size: 0.98rem; color: var(--warm-gold); font-weight: 600; margin-bottom: 18px;" id="pelita-progress-text">
+        Pelita Dinyalakan: 0 / 5
       </div>
 
-      <!-- Dedicated Balloon Rack: 5 stable slots that NEVER shift or cut off -->
-      <div class="balloons-rack" id="balloons-rack">
-        <!-- Dynamically injected balloons -->
+      <!-- Traditional Carved Wooden Shelf with 5 Ornate Brass Pelita Lamps -->
+      <div class="pelita-scene">
+        <div class="pelita-stand-shelf">
+          <div class="pelita-shelf-trim"></div>
+          <div class="pelita-rack" id="pelita-rack">
+            <!-- Dynamically populated 5 ornate brass pelita lamps -->
+          </div>
+          <div class="pelita-shelf-base"></div>
+        </div>
       </div>
 
-      <!-- Dedicated Unlocked Wishes Section below balloons -->
+      <!-- Dedicated Unlocked Wishes Section below Pelita -->
       <div class="unlocked-wishes-section" id="unlocked-wishes-section">
-        <h4 class="wishes-section-title" id="wishes-section-title" style="display: none;">Doa & Ucapan Buat Makjon 💌</h4>
+        <h4 class="wishes-section-title" id="wishes-section-title" style="display: none;">Cahaya Doa Buat Makjon 🪔</h4>
         <div class="wishes-grid" id="wishes-card-list">
           <!-- Dynamically appended wish cards -->
         </div>
       </div>
 
-      <button class="btn-gold" id="btn-to-stage-4" style="display: none; margin-top: 22px;">
-        Bawa Keluar Kek Hari Lahir! 🎂
+      <button class="btn-gold" id="btn-to-stage-4" style="display: none; margin-top: 25px;">
+        <span>🎂</span> Bawa Keluar Kek Hari Lahir!
       </button>
     </section>
 

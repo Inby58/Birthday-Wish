@@ -16,29 +16,41 @@ const BIRTHDAY_CONFIG = {
   lightsBanner: "SELAMAT HARI LAHIR, MAKJON!",
   cakeTitle: "Niatkan hajat di hati dan tiup lilin hari lahir, Makjon! 🎂",
 
-  // Pop-up wishes revealed when balloons are popped (5 balloons)
-  balloonWishes: [
+  // 5 Pelita Doa Emas Diraja (diperbaharui khas buat Makjon)
+  pelitaWishes: [
     { 
-      title: "Kesihatan & Awet Muda 🌿", 
-      text: "Semoga Makjon sentiasa dikurniakan tubuh badan yang sihat bertenaga, dipanjangkan usia, dan kekal segak bergaya selalu!" 
+      title: "Kesihatan & Afiyat Berpanjangan 🌿", 
+      tag: "Pelita 1",
+      icon: "🌿",
+      text: "Semoga Makjon sentiasa dikurniakan tubuh badan yang sihat bertenaga, dijauhkan daripada sebarang kemudaratan, dan kekal cergas serta segak bergaya selalu." 
     },
     { 
-      title: "Rezeki Melimpah Ruah 💰", 
-      text: "Moga dilapangkan rezeki seluas lautan, diberkati setiap usaha, dan dipermudahkan segala urusan pekerjaan." 
+      title: "Keberkatan & Kelapangan Rezeki 💰", 
+      tag: "Pelita 2",
+      icon: "💰",
+      text: "Moga dilapangkan pintu rezeki Makjon seluas lautan, diberkati dalam setiap usaha dan ikhtiar, serta dipermudahkan segala urusan pekerjaan." 
     },
     { 
-      title: "Ketenangan & Kebahagiaan 🕊️", 
-      text: "Semoga setiap hari dilalui dengan ketenangan jiwa, senyuman manis, dan dipenuhi kasih sayang keluarga tersayang." 
+      title: "Ketenangan Jiwa & Hati Damai 🕊️", 
+      tag: "Pelita 3",
+      icon: "🕊️",
+      text: "Semoga setiap fasa kehidupan Makjon dilalui dengan ketenangan hati, senyuman bahagia, dan kemanisan bersama keluarga tersayang." 
     },
     { 
-      title: "The Legend Trophy 🏆", 
-      text: "Insan yang sentiasa tenang, sempoi, dan berjiwa murni! Terima kasih kerana sentiasa menjadi inspirasi keluarga kita." 
+      title: "The Legend: Hormat & Kasih Sayang 👑", 
+      tag: "Pelita 4",
+      icon: "👑",
+      text: "Insan yang berwibawa, sempoi, dan sentiasa menjadi inspirasi serta penyeri keluarga. Terima kasih Makjon atas bimbingan dan teladan yang tidak ternilai!" 
     },
     { 
-      title: "Rahmat & Perlindungan 🤲", 
-      text: "Moga setiap langkah Makjon sentiasa dalam naungan, lindungan, serta limpahan rahmat Allah SWT di dunia dan akhirat. Amin!" 
+      title: "Limpahan Rahmat & Lindungan Ilahi 🤲", 
+      tag: "Pelita 5",
+      icon: "🤲",
+      text: "Moga setiap langkah dan hela nafas Makjon sentiasa dipayungi rahmat, kasih sayang, keampunan, serta lindungan Allah SWT di dunia dan akhirat. Amin!" 
     }
   ],
+  // Backward compatibility alias
+  get balloonWishes() { return this.pelitaWishes; },
 
   // Grand Letter content revealed inside the Gift Box
   letter: {

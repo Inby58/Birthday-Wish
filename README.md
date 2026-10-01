@@ -6,47 +6,42 @@ An aesthetic, interactive birthday journey website built with modern web technol
 
 ## ✨ Features & Stages
 
-1. **🚪 Stage 1: Knock to Enter**
-   - 3D perspective luxury doorway with custom VIP plaque for the birthday person.
-   - Interactive brass knocker with wood knocking sound effects.
-   - Smooth door opening animation revealing the party hall.
+1. **✉️ Stage 1: Warkah Undangan Diraja**
+   - 3D Royal Golden Envelope sealed with an authentic wax seal stamped with Makjon's name.
+   - Interactive wax break sound effect and smooth unsealing animation revealing the VIP invitation card.
 
-2. **💡 Stage 2: Turn on the Lights**
-   - Pull the dangling glowing switch cord to illuminate the room.
-   - Glowing warm fairy lights cascade across the ceiling.
-   - Neon marquee banner with personalized name lights up.
-   - Background music box "Happy Birthday" melody starts playing!
+2. **🥁 Stage 2: Paluan Gong Emas Diraja**
+   - Traditional carved timber stand with brass Royal Gong and beater mallet.
+   - Strike the gong to hear a deep acoustic resonant strike and unleash a golden shockwave ripple.
+   - Illuminates the grand banquet hall with fairy lights and golden neon celebration marquee!
 
-3. **🎈 Stage 3: Pop the Birthday Balloons**
-   - 5 floating balloons with authentic buoyancy and sway.
-   - Tap balloons to pop them with crisp sound effects and confetti bursts.
-   - Each balloon reveals a secret wish & heartfelt compliment card!
+3. **🪔 Stage 3: Pelita Emas Diraja (5 Royal Oil Lamps)**
+   - 5 traditional ornate brass oil lamps (*Pelita Panjut Tembaga*) set upon a carved timber railing.
+   - Tap each pelita to ignite the warm golden flame with a match strike sound and harmonic singing bowl chimes.
+   - Each lit pelita radiates a heartfelt prayer (*Doa & Ucapan*) for Makjon's health, peace, prosperity, and blessings.
 
-4. **🎂 Stage 4: Make a Wish & Blow Out Candles**
-   - 3-tier birthday cake with glowing flickering candle flames.
+4. **🎂 Stage 4: Niatkan Hajat & Tiup Lilin Hari Lahir**
+   - Elegant champagne silk & chocolate velvet birthday cake with glowing flickering candles.
    - **Interactive Blow Options**:
-     - Click/tap to blow out candles.
+     - Click/tap to extinguish candles.
      - **Microphone Blowing Detection**: Blow directly into your device's microphone to extinguish the candles!
-   - Confetti cannon explosion and cheering fanfare!
+   - Confetti cannon explosion and cheering celebratory fanfare!
 
-5. **🎁 Stage 5: The Grand Gift & Unfolding Letter**
-   - 3D luxury gift box unties and opens.
-   - Unfolds an authentic wax-sealed parchment letter with personalized messages.
-   - **Polaroid Memories Gallery**: Polaroid cards with hover tilt effects + interactive photo upload button.
-   - **Sky Lantern Wish**: Type a wish for the new year and release a glowing sky lantern that floats into the starry night sky (saved in local storage).
-   - Confetti blaster, replay journey, and one-click share link buttons.
+5. **🎁 Stage 5: Peti Rahsia Makjon & Cabaran Kad Memori**
+   - Luxury golden vault padlock guarding Makjon's birthday gift box.
+   - **Memory Card Matching Challenge**: Match 3 iconic Makjon card pairs to unlock the golden keys and unseal the vault!
+   - Unfolds an authentic gold-stamped royal parchment letter with heartfelt words, closing blessings, and featured celebration photo.
 
 ---
 
 ## 🎨 How to Personalize
 
 Open `config.js` in your editor. You can easily customize:
-- `name`: The birthday person's name (e.g. `"Sarah"`)
-- `nickname`: Cute nickname or title (e.g. `"Sunshine"` or `"Bestie"`)
-- `age`: Age number (e.g. `"25"`), or `""` to hide age
-- `balloonWishes`: The 5 custom messages revealed when balloons pop
-- `letter`: The salutation, paragraphs, closing, and author signature
-- `polaroids`: Image URLs or local paths with custom captions
+- `name`: Celebrant's name (e.g. `"Makjon"`)
+- `invitationSubtitle`: Subtitle displayed on the Royal Envelope stage
+- `pelitaWishes`: The 5 custom prayer messages revealed when each brass oil lamp is lit
+- `letter`: Salutation, body paragraphs, closing, and author signature
+- `photoUrl`: Local path or URL to the featured celebration photo
 
 ---
 

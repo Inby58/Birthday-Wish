@@ -170,7 +170,57 @@ class BirthdayAudioEngine {
     hitOsc.stop(t + 0.08);
   }
 
-  // Balloon pop sound with festive chime
+  // Traditional Royal Pelita ignition (match strike + warm flame whoosh + singing bowl chime)
+  playPelitaIgnite(pitchIndex = 0) {
+    this.init();
+    if (this.isMuted) return;
+    const t = this.ctx.currentTime;
+
+    // 1. Soft match strike / flame ignition whoosh
+    const noiseOsc = this.ctx.createOscillator();
+    const noiseGain = this.ctx.createGain();
+    const filter = this.ctx.createBiquadFilter();
+
+    noiseOsc.type = 'triangle';
+    noiseOsc.frequency.setValueAtTime(420, t);
+    noiseOsc.frequency.exponentialRampToValueAtTime(110, t + 0.12);
+
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(580, t);
+    filter.Q.setValueAtTime(2, t);
+
+    noiseGain.gain.setValueAtTime(0.55, t);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+
+    noiseOsc.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(this.masterGain);
+
+    noiseOsc.start(t);
+    noiseOsc.stop(t + 0.15);
+
+    // 2. Harmonic singing bowl / celestial golden chime
+    // Musical pentatonic scale: D4, F#4, A4, B4, D5
+    const notes = [293.66, 369.99, 440.00, 493.88, 587.33];
+    const freq = notes[pitchIndex % notes.length] || 440;
+
+    const chimeOsc = this.ctx.createOscillator();
+    const chimeGain = this.ctx.createGain();
+    chimeOsc.type = 'sine';
+    chimeOsc.frequency.setValueAtTime(freq, t + 0.04);
+
+    chimeGain.gain.setValueAtTime(0.001, t + 0.04);
+    chimeGain.gain.linearRampToValueAtTime(0.42, t + 0.07);
+    chimeGain.gain.exponentialRampToValueAtTime(0.0001, t + 1.25);
+
+    chimeOsc.connect(chimeGain);
+    chimeGain.connect(this.masterGain);
+    chimeOsc.start(t + 0.04);
+    chimeOsc.stop(t + 1.3);
+
+    // Secondary harmonic sparkle
+    this.playBell(t + 0.1, freq * 2, 0.35, 0.28);
+  }
   playPop() {
     this.init();
     if (this.isMuted) return;

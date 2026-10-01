@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // State variables
   let currentStage = 1;
-  let balloonsPopped = 0;
   let candlesBlown = false;
   let micStream = null;
   let micAudioContext = null;
@@ -254,85 +253,88 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  if (btnToStage3) btnToStage3.addEventListener('click', () => goToStage(3));
+  if (btnToStage3) {
+    btnToStage3.addEventListener('click', () => {
+      goToStage(3);
+      initPelita();
+    });
+  }
 
-  if (btnToStage3) btnToStage3.addEventListener('click', () => {
-    goToStage(3);
-    initBalloons();
-  });
-
-  // ================= STAGE 3: BALLOONS (STABLE RACK & FEED) =================
-  const balloonsRack = document.getElementById('balloons-rack');
+  // ================= STAGE 3: PELITA EMAS DIRAJA =================
+  const pelitaRack = document.getElementById('pelita-rack');
   const wishesCardList = document.getElementById('wishes-card-list');
   const wishesSectionTitle = document.getElementById('wishes-section-title');
-  const balloonProgressText = document.getElementById('balloon-progress-text');
+  const pelitaProgressText = document.getElementById('pelita-progress-text');
   const btnToStage4 = document.getElementById('btn-to-stage-4');
   const guideStage3 = document.getElementById('guide-stage-3');
-  let balloonsInitialized = false;
+  let pelitaInitialized = false;
+  let pelitaLitCount = 0;
 
-  const balloonColors = [
-    '#d4af37', // Imperial Songket Gold
-    '#3d261e', // Rich Cocoa Brown
-    '#27553f', // Emerald Songket Green
-    '#aa8012', // Antique Gold
-    '#e8d5b5'  // Silk Champagne
-  ];
-
-  function initBalloons() {
-    if (balloonsInitialized) return;
-    balloonsInitialized = true;
-    if (balloonsRack) balloonsRack.innerHTML = '';
+  function initPelita() {
+    if (pelitaInitialized) return;
+    pelitaInitialized = true;
+    if (pelitaRack) pelitaRack.innerHTML = '';
     if (wishesCardList) wishesCardList.innerHTML = '';
-    balloonsPopped = 0;
+    pelitaLitCount = 0;
 
-    const wishes = cfg.balloonWishes || [
-      { title: "Joy", text: "May your year be filled with laughter and delight! ✨" },
-      { title: "Adventure", text: "Exciting journeys ahead! 🚀" },
-      { title: "Dreams", text: "May all your wishes come true! 🌟" },
-      { title: "Love", text: "Always surrounded by warmth & happiness! 💖" },
-      { title: "Magic", text: "Stay fabulous and bright! 🥂" }
+    const wishes = cfg.pelitaWishes || cfg.balloonWishes || [
+      { title: "Kesihatan & Afiyat Berpanjangan 🌿", tag: "Pelita 1", icon: "🌿", text: "Semoga Makjon sentiasa sihat bertenaga, dijauhkan kemudaratan, dan segak bergaya!" },
+      { title: "Keberkatan & Kelapangan Rezeki 💰", tag: "Pelita 2", icon: "💰", text: "Moga dilapangkan pintu rezeki yang melimpah ruah dan dipermudahkan urusan." },
+      { title: "Ketenangan Jiwa & Hati Damai 🕊️", tag: "Pelita 3", icon: "🕊️", text: "Semoga setiap fasa kehidupan dilalui dengan kedamaian dan senyuman bahagia." },
+      { title: "The Legend: Hormat & Kasih Sayang 👑", tag: "Pelita 4", icon: "👑", text: "Insan sempoi, hebat, dan sentiasa menjadi inspirasi keluarga kita!" },
+      { title: "Limpahan Rahmat & Lindungan Ilahi 🤲", tag: "Pelita 5", icon: "🤲", text: "Moga Makjon sentiasa dipayungi rahmat dan lindungan Allah SWT selalu. Amin!" }
     ];
 
     wishes.forEach((item, index) => {
-      const slot = document.createElement('div');
-      slot.className = 'balloon-slot';
-      slot.id = `balloon-slot-${index}`;
+      const lamp = document.createElement('div');
+      lamp.className = 'pelita-lamp';
+      lamp.id = `pelita-lamp-${index}`;
+      lamp.setAttribute('role', 'button');
+      lamp.setAttribute('tabindex', '0');
+      lamp.setAttribute('title', `Tekan untuk menyalakan Pelita #${index + 1} (${item.title})`);
 
-      const wrap = document.createElement('div');
-      wrap.className = 'balloon-wrap';
-      const color = balloonColors[index % balloonColors.length];
-
-      wrap.innerHTML = `
-        <div class="balloon" style="background: ${color}; animation-delay: ${(index * 0.35).toFixed(1)}s;">
-          <div class="balloon-highlight"></div>
-          <span class="balloon-label">Pop!</span>
+      lamp.innerHTML = `
+        <div class="pelita-aura"></div>
+        <div class="pelita-flame-wrap">
+          <div class="pelita-wick"></div>
+          <div class="pelita-flame"></div>
+          <div class="pelita-sparks"></div>
         </div>
-        <div class="balloon-knot" style="background: ${color};"></div>
-        <div class="balloon-string"></div>
+        <div class="pelita-vessel">
+          <div class="pelita-spout"></div>
+          <div class="pelita-rim"></div>
+          <div class="pelita-belly">
+            <span class="pelita-songket-icon">✦</span>
+          </div>
+          <div class="pelita-handle"></div>
+        </div>
+        <div class="pelita-pedestal">
+          <span class="pelita-number">#${index + 1}</span>
+        </div>
+        <span class="pelita-state-label">Tekan Nyala</span>
       `;
 
-      wrap.addEventListener('click', () => {
-        if (slot.dataset.popped) return;
-        slot.dataset.popped = 'true';
+      function igniteLamp() {
+        if (lamp.classList.contains('lit')) return;
+        lamp.classList.add('lit');
+
+        const stateLabel = lamp.querySelector('.pelita-state-label');
+        if (stateLabel) stateLabel.textContent = 'Menyala ✨';
 
         if (navigator.vibrate) {
-          try { navigator.vibrate(30); } catch (e) {}
+          try { navigator.vibrate(35); } catch (e) {}
         }
 
-        // Sound & Confetti
-        if (window.birthdayAudio) window.birthdayAudio.playPop();
+        // Sound: Pentatonic match strike & singing bowl chime
+        if (window.birthdayAudio) {
+          window.birthdayAudio.playPelitaIgnite(index);
+        }
+
+        // Confetti spark burst from the lamp position
         if (window.birthdayConfetti) {
-          const rect = wrap.getBoundingClientRect();
-          window.birthdayConfetti.burst(rect.left + rect.width / 2, rect.top + rect.height / 2, 35);
+          const rect = lamp.getBoundingClientRect();
+          window.birthdayConfetti.burst(rect.left + rect.width / 2, rect.top + rect.height * 0.35, 35);
         }
-
-        // Replace balloon in its slot with a neat popped badge so other balloons never jump or move
-        slot.innerHTML = `
-          <div class="popped-badge">
-            <span class="popped-badge-icon">✨</span>
-            <span class="popped-badge-num">#${index + 1}</span>
-          </div>
-        `;
 
         // Reveal wish card in the dedicated list below
         if (wishesSectionTitle) wishesSectionTitle.style.display = 'block';
@@ -342,34 +344,45 @@ document.addEventListener('DOMContentLoaded', () => {
           card.innerHTML = `
             <div class="wish-card-header">
               <div class="wish-card-title">${item.title}</div>
-              <span class="wish-card-tag">Wish #${index + 1}</span>
+              <span class="wish-card-tag">${item.tag || `Pelita #${index + 1}`}</span>
             </div>
             <div class="wish-card-text">${item.text}</div>
           `;
           wishesCardList.appendChild(card);
         }
 
-        balloonsPopped++;
-        balloonProgressText.textContent = `Wishes Unlocked: ${balloonsPopped} / ${wishes.length}`;
+        pelitaLitCount++;
+        if (pelitaProgressText) {
+          pelitaProgressText.textContent = `Pelita Dinyalakan: ${pelitaLitCount} / ${wishes.length}`;
+        }
 
         if (guideStage3) {
-          if (balloonsPopped === wishes.length) {
+          if (pelitaLitCount === wishes.length) {
             guideStage3.classList.add('fade-out');
           } else {
-            guideStage3.innerHTML = `<span class="guide-arrow">👇</span> Tap the remaining ${wishes.length - balloonsPopped} balloons!`;
+            guideStage3.innerHTML = `<span class="guide-arrow">👉</span> Nyalakan ${wishes.length - pelitaLitCount} lagi pelita tembaga!`;
           }
         }
 
-        if (balloonsPopped === wishes.length) {
-          balloonProgressText.textContent = `🎉 All ${wishes.length} wishes revealed! The cake is waiting!`;
+        if (pelitaLitCount === wishes.length) {
+          if (pelitaProgressText) {
+            pelitaProgressText.textContent = `✨ Kesemua 5 Pelita Doa Telah Menyala Sempurna! Menerangi Langkah Makjon! 🪔`;
+          }
           if (window.birthdayAudio) window.birthdayAudio.playFanfare();
           if (window.birthdayConfetti) window.birthdayConfetti.cannon();
-          btnToStage4.style.display = 'inline-flex';
+          if (btnToStage4) btnToStage4.style.display = 'inline-flex';
+        }
+      }
+
+      lamp.addEventListener('click', igniteLamp);
+      lamp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          igniteLamp();
         }
       });
 
-      slot.appendChild(wrap);
-      balloonsRack.appendChild(slot);
+      pelitaRack.appendChild(lamp);
     });
   }
 
@@ -815,17 +828,18 @@ document.addEventListener('DOMContentLoaded', () => {
         guideStage2.style.display = 'inline-flex';
       }
 
-      balloonsInitialized = false;
-      balloonsPopped = 0;
-      if (balloonsRack) balloonsRack.innerHTML = '';
+      // Reset Stage 3 (Pelita Emas Diraja)
+      pelitaInitialized = false;
+      pelitaLitCount = 0;
+      if (pelitaRack) pelitaRack.innerHTML = '';
       if (wishesCardList) wishesCardList.innerHTML = '';
       if (wishesSectionTitle) wishesSectionTitle.style.display = 'none';
-      balloonProgressText.textContent = 'Wishes Unlocked: 0 / 5';
+      if (pelitaProgressText) pelitaProgressText.textContent = 'Pelita Dinyalakan: 0 / 5';
       btnToStage4.style.display = 'none';
       if (guideStage3) {
         guideStage3.classList.remove('fade-out');
         guideStage3.style.display = 'inline-flex';
-        guideStage3.innerHTML = '<span class="guide-arrow">👇</span> Tap each balloon to pop & reveal wishes!';
+        guideStage3.innerHTML = '<span class="guide-arrow">👉</span> Tekan setiap pelita tembaga untuk menyalakan apinya!';
       }
 
       candlesBlown = false;
