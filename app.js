@@ -136,8 +136,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnOpenEnvelope = document.getElementById('btn-open-envelope');
   const btnToStage2 = document.getElementById('btn-to-stage-2');
   const guideStage1 = document.getElementById('guide-stage-1');
+  const invitationCard = document.getElementById('invitation-card');
   let envelopeOpened = false;
   let cardSettled = false;
+
+  // Ensure card is completely hidden before user opens envelope
+  if (invitationCard && !envelopeOpened) {
+    invitationCard.style.opacity = '0';
+    invitationCard.style.visibility = 'hidden';
+    invitationCard.style.pointerEvents = 'none';
+  }
 
   function openEnvelope() {
     if (envelopeOpened) {
@@ -162,6 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (royalEnvelope) {
       royalEnvelope.classList.add('unsealed');
+    }
+
+    if (invitationCard) {
+      setTimeout(() => {
+        invitationCard.style.opacity = '1';
+        invitationCard.style.visibility = 'visible';
+        invitationCard.style.pointerEvents = 'auto';
+      }, 150);
     }
 
     if (window.birthdayConfetti) {

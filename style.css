@@ -535,9 +535,9 @@ body {
 
 /* When unsealed: Card blooms into view, floats in front of envelope, 100% visible */
 .royal-envelope.unsealed .invitation-card {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
   cursor: pointer;
   transform: translateY(-135px) scale(1.02);
   z-index: 25;
@@ -2858,8 +2858,9 @@ body {
   }
 
   .royal-envelope.unsealed .invitation-card {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     transform: translateY(-120px) scale(1.02);
   }
 
